@@ -1,10 +1,15 @@
+using MapsterCard.ServiceProviders;
+
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+builder.Services.AddAppService()
+    .AddDatabase(builder.Configuration);
+
 
 var app = builder.Build();
 
+app.MapGet("/", () => "HelloWorld!");
 
 if (app.Environment.IsDevelopment())
 {
