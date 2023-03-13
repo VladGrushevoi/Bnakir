@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MapsterCard.AppDbContext.Repositories;
+using MapsterCard.AppDbContext.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace MapsterCard.ServiceProviders;
 
@@ -9,8 +11,9 @@ public static class DbServiceProvider
         services.AddDbContext<AppDbContext.AppDbContext>(opt =>
             opt.UseNpgsql(config.GetConnectionString("MapsterDbConnection"))
         );
+        services.AddTransient<ISystemCard, SystemCardRepository>();
+        services.AddTransient<IMapsterMain, MapsterMainRepository>();
         
-
         return services;
     }
 }
