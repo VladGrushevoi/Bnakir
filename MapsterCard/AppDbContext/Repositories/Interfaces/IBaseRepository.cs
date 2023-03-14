@@ -9,4 +9,5 @@ public interface IBaseRepository<T> where T : BaseEntity
     public Task<T> AddAsync(T entity);
     public Task<T> UpdateAsync(T entity);
     public Task<T> RemoveAsync(Guid id);
+    public Task SaveAsync();
 }

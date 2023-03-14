@@ -7,42 +7,51 @@ namespace MapsterCard.AppDbContext.Repositories;
 public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
 {
     protected readonly AppDbContext _context;
+    protected readonly DbSet<T> _table;
     
     public BaseRepository(AppDbContext context)
     {
         _context = context;
+        _table = _context.Set<T>();
     }
 
     public async Task<T?> GetByIdAsync(Guid id)
     {
-        return await _context.Set<T>().SingleOrDefaultAsync(e => e.Id == id);
+        return await _table.SingleOrDefaultAsync(e => e.Id == id);
     }
 
     public async Task<IEnumerable<T>> GetAllAsync()
     {
-        return await _context.Set<T>().ToListAsync();
+        return await _table.ToListAsync();
     }
 
     public async Task<T> AddAsync(T entity)
     {
-        var result = await _context.Set<T>().AddAsync(entity);
-        await _context.SaveChangesAsync();
+        var result = await _table.AddAsync(entity);
+        _context.Entry(entity).State = EntityState.Modified;
         return result.Entity;
     }
 
     public async Task<T> UpdateAsync(T entity)
     {
-        var result = _context.Set<T>().Attach(entity);
-        await _context.SaveChangesAsync();
+        return await Task.Run(() =>
+        {
+            var result = _table.Attach(entity);
 
-        return result.Entity;
+            return result.Entity;
+        });
     }
 
     public async Task<T> RemoveAsync(Guid id)
     {
-        var entity = await _context.Set<T>().FindAsync(id);
-        var result = _context.Set<T>().Remove(entity);
+        var entity = await _table.FindAsync(id);
+        var result = _table.Remove(entity);
 
         return result.Entity;
+    }
+
+    public async Task SaveAsync()
+    {
+        await _context.SaveChangesAsync();
     }
 }
