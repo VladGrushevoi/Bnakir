@@ -2,7 +2,7 @@
 
 namespace MapsterCard.AppDbContext.Repositories.Interfaces;
 
-public interface ISystemCard : ICrudable<SystemCard> 
+public interface ISystemCard : IBaseRepository<SystemCard> 
 {
     
 }

@@ -2,7 +2,7 @@
 
 namespace MapsterCard.AppDbContext.Repositories.Interfaces;
 
-public interface IMapsterMain : ICrudable<MapsterMain>
+public interface IMapsterMain : IBaseRepository<MapsterMain>
 {
     
 }

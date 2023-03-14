@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MapsterCard.AppDbContext.Repositories;
 
-public class GenericRepository<T> : ICrudable<T> where T : BaseEntity
+public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
 {
     protected readonly AppDbContext _context;
     
-    public GenericRepository(AppDbContext context)
+    public BaseRepository(AppDbContext context)
     {
         _context = context;
     }

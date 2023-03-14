@@ -2,7 +2,7 @@
 
 namespace MapsterCard.AppDbContext.Repositories.Interfaces;
 
-public interface ICrudable<T> where T : BaseEntity
+public interface IBaseRepository<T> where T : BaseEntity
 {
     public Task<T?> GetByIdAsync(Guid id);
     public Task<IEnumerable<T>> GetAllAsync();
