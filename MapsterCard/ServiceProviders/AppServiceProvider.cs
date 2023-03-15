@@ -1,4 +1,8 @@
-﻿namespace MapsterCard.ServiceProviders;
+﻿using System.Reflection;
+using FluentValidation;
+using MediatR;
+
+namespace MapsterCard.ServiceProviders;
 
 public static class AppServiceProvider
 {
@@ -6,7 +10,9 @@ public static class AppServiceProvider
     {
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
-        
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        services.AddAutoMapper(typeof(MappingProfile));
         return services;
     }
 }

@@ -1,4 +1,5 @@
-﻿using MapsterCard.AppDbContext.Repositories;
+﻿using MapsterCard.AppDbContext;
+using MapsterCard.AppDbContext.Repositories;
 using MapsterCard.AppDbContext.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,11 +9,13 @@ public static class DbServiceProvider
 {
     public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration config)
     {
-        services.AddDbContext<AppDbContext.AppDbContext>(opt =>
+        services.AddScoped<AppDbContext.AppDbContext>();
+        services.AddDbContextPool<AppDbContext.AppDbContext>(opt =>
             opt.UseNpgsql(config.GetConnectionString("MapsterDbConnection"))
         );
-        services.AddTransient<ISystemCard, SystemCardRepository>();
-        services.AddTransient<IMapsterMain, MapsterMainRepository>();
+        
+        services.AddScoped<ISystemCard, SystemCardRepository>();
+        services.AddScoped<IMapsterMain, MapsterMainRepository>();
         
         return services;
     }
