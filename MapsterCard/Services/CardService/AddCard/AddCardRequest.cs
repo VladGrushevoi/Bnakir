@@ -17,6 +17,6 @@ public class AddCardModelValidator : AbstractValidator<AddCardRequest>
 {
     public AddCardModelValidator()
     {
-        RuleFor(f => f.CountryName).NotEmpty().NotNull().MinimumLength(3);
+        RuleFor(f => f.CountryName).NotEmpty().NotNull().MinimumLength(3).WithMessage("Country Name have minimum length 3");
     }
 }

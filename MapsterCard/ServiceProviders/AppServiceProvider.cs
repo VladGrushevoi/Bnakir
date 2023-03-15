@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using FluentValidation;
+using MapsterCard.Services;
 using MediatR;
 
 namespace MapsterCard.ServiceProviders;
@@ -12,6 +13,7 @@ public static class AppServiceProvider
         services.AddSwaggerGen();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         services.AddAutoMapper(typeof(MappingProfile));
         return services;
     }
