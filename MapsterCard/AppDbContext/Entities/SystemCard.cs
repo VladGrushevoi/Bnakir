@@ -6,15 +6,15 @@ public sealed class SystemCard : BaseEntity
 {
     [MaxLength(16)]
     [MinLength(16)]
-    public string CardNumber { get; set; }
+    public string? CardNumber { get; set; }
 
     [MaxLength(3)]
     [MinLength(3)]
-    public string CVV { get; set; }
+    public string? CVV { get; set; }
     
     [MinLength(3)]
-    public string CountryName { get; set; }
+    public string? CountryName { get; set; }
     
-    public DateOnly CreatedAt { get; set; }
-    public DateOnly Expire { get; set; }
+    public DateOnly? CreatedAt { get; set; }
+    public DateOnly? Expire { get; set; }
 }

@@ -19,7 +19,7 @@ public class GetCardByIdHandler : IRequestHandler<GetCardByIdRequest, GetCardByI
     public async Task<GetCardByIdResponse> Handle(GetCardByIdRequest request, CancellationToken cancellationToken)
     {
         var cardEntity = _mapper.Map<SystemCard>(request);
-        cardEntity = await _cardRepository.GetByIdAsync(cardEntity.Id);
+        cardEntity = await _cardRepository.GetByIdAsync(cardEntity.Id.Value);
 
         return _mapper.Map<GetCardByIdResponse>(cardEntity);
     }
