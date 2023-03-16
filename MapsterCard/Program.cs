@@ -10,9 +10,9 @@ builder.Services.AddAppService()
     .AddDatabase(builder.Configuration);
 
 var app = builder.Build();
-var scope = app.Services.CreateScope();
+
 app.MapGroup("/card")
-    .MapSystemCard(scope.ServiceProvider.GetRequiredService<ISystemCard>())
+    .MapSystemCard()
     .WithTags("Public");
 
 if (app.Environment.IsDevelopment())
