@@ -27,8 +27,6 @@ public class CardReadyToOperationHandler : IRequestHandler<CardReadyToOperationR
             throw new Exception($"No such elements in database");
         }
 
-        var conditionResult = (DateOnly.FromDateTime(DateTime.Now) < cardEntity.Expire.Value);
-        var result = _mapper.Map<CardReadyToOperationResponse>(cardEntity);
-        return result;
+        return _mapper.Map<CardReadyToOperationResponse>(cardEntity);
     }
 }
