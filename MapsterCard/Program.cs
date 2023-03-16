@@ -14,6 +14,9 @@ var app = builder.Build();
 app.MapGroup("/card")
     .MapSystemCard()
     .WithTags("Public");
+app.MapGroup("/system")
+    .RouteSystemGroup()
+    .WithTags("System");
 
 if (app.Environment.IsDevelopment())
 {

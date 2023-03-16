@@ -5,7 +5,7 @@ using MediatR;
 
 namespace MapsterCard.ServiceProviders.Extension;
 
-public static class RouteExtension
+public static class RouteCardExtension
 {
     public static RouteGroupBuilder MapSystemCard(this RouteGroupBuilder group)
     {
