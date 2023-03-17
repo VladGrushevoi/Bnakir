@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MapsterCard.Services.CardService.GetCardById;
 
-public record GetCardByIdRequest([FromQuery] Guid id) : IRequest<GetCardByIdResponse>;
-public record GetCardByIdResponse(string CardNumber, string CVV, string CountryName, DateOnly Expire);
+public sealed record GetCardByIdRequest([FromQuery] Guid id) : IRequest<GetCardByIdResponse>;
+public sealed record GetCardByIdResponse(string CardNumber, string CVV, string CountryName, DateOnly Expire);
 
-public class GetCardByIdValidation : AbstractValidator<GetCardByIdRequest>
+public sealed class GetCardByIdValidation : AbstractValidator<GetCardByIdRequest>
 {
     public GetCardByIdValidation()
     {

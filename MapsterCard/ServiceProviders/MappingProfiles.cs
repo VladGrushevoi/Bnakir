@@ -9,7 +9,7 @@ using MapsterCard.Services.SystemService.UpdatePercentage;
 
 namespace MapsterCard.ServiceProviders;
 
-public class CardMappingProfile : Profile
+public sealed class CardMappingProfile : Profile
 {
     public CardMappingProfile()
     {

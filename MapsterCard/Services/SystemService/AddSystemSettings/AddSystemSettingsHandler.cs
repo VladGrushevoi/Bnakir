@@ -5,7 +5,7 @@ using MediatR;
 
 namespace MapsterCard.Services.SystemService.AddSystemSettings;
 
-public class AddSystemSettingsHandler : IRequestHandler<AddSystemSettingsRequest, AddSystemSettingsResponse>
+public sealed class AddSystemSettingsHandler : IRequestHandler<AddSystemSettingsRequest, AddSystemSettingsResponse>
 {
     private readonly IMapper _mapper;
     private readonly IMapsterMain _mapsterRepository;

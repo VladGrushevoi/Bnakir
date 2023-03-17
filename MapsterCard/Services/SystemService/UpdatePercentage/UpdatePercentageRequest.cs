@@ -16,7 +16,7 @@ public sealed record UpdatePercentageResponse
     public string PercentageBetweenCardSystem { get; set; }
 }
 
-class UpdatePercentageRequestValidation : AbstractValidator<UpdatePercentageRequest>
+sealed class UpdatePercentageRequestValidation : AbstractValidator<UpdatePercentageRequest>
 {
     public UpdatePercentageRequestValidation()
     {

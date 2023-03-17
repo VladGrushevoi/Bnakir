@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MapsterCard.AppDbContext.Repositories;
 
-public class SystemCardRepository : BaseRepository<SystemCard>, ISystemCard
+public sealed class SystemCardRepository : BaseRepository<SystemCard>, ISystemCard
 {
     public SystemCardRepository(AppDbContext context) : base(context)
     {

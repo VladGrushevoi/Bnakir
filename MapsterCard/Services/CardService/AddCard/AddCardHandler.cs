@@ -5,7 +5,7 @@ using MediatR;
 
 namespace MapsterCard.Services.CardService.AddCard;
 
-public class AddCardHandler : IRequestHandler<AddCardRequest, AddCardResponse>
+public sealed class AddCardHandler : IRequestHandler<AddCardRequest, AddCardResponse>
 {
     private readonly ISystemCard _cardRepository;
     private readonly IMapper _mapper;

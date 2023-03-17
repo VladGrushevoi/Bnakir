@@ -3,12 +3,12 @@ using MediatR;
 
 namespace MapsterCard.Services.SystemService.AddSystemSettings;
 
-public record AddSystemSettingsRequest(decimal Balance, 
+public sealed record AddSystemSettingsRequest(decimal Balance, 
     float PercentageOfOperationsBetweenCountry, 
     float PercentageOfOperationsInCountry,
     float PercentageOfOperationBetweenCardSystem) : IRequest<AddSystemSettingsResponse>;
 
-public record AddSystemSettingsResponse
+public sealed record AddSystemSettingsResponse
 {
     public Guid id { get; set; }
     public string Balance { get; set; }
@@ -17,7 +17,7 @@ public record AddSystemSettingsResponse
     public string PercentageBetweenCardSystem { get; set; }
 }
 
-public class AddSystemSettingsRequestValidation : AbstractValidator<AddSystemSettingsRequest>
+public sealed class AddSystemSettingsRequestValidation : AbstractValidator<AddSystemSettingsRequest>
 {
     public AddSystemSettingsRequestValidation()
     {

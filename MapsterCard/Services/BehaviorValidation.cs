@@ -4,7 +4,7 @@ using MediatR;
 
 namespace MapsterCard.Services;
 
-public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
+public sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
 {
     private readonly ILogger<ValidationBehavior<TRequest, TResponse>> _logger;
     private readonly IEnumerable<IValidator<TRequest>> _validators;

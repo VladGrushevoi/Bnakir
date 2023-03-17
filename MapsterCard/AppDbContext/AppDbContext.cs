@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 namespace MapsterCard.AppDbContext;
 
-public class AppDbContext : DbContext
+public sealed class AppDbContext : DbContext
 {
     public DbSet<SystemCard> Cards { get; set; }
     public DbSet<MapsterMain> Mapsters { get; set; }

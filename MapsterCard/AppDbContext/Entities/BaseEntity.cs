@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace MapsterCard.AppDbContext.Entities;
+﻿namespace MapsterCard.AppDbContext.Entities;
 
 public class BaseEntity
 {

@@ -5,7 +5,7 @@ using MediatR;
 
 namespace MapsterCard.Services.SystemService.UpdatePercentage;
 
-public class UpdatePercentageHandler : IRequestHandler<UpdatePercentageRequest, UpdatePercentageResponse>
+public sealed class UpdatePercentageHandler : IRequestHandler<UpdatePercentageRequest, UpdatePercentageResponse>
 {
     private readonly IMapsterMain _mainRepository;
     private readonly IMapper _mapper;

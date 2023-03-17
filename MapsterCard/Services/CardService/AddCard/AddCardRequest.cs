@@ -3,8 +3,8 @@ using MediatR;
 
 namespace MapsterCard.Services.CardService.AddCard;
 
-public record AddCardRequest(string CountryName) : IRequest<AddCardResponse>;
-public record AddCardResponse(
+public sealed record AddCardRequest(string CountryName) : IRequest<AddCardResponse>;
+public sealed record AddCardResponse(
         Guid id,
         string CardNumber,
         string CVV,
@@ -13,7 +13,7 @@ public record AddCardResponse(
         DateOnly Expire
     );
 
-public class AddCardModelValidator : AbstractValidator<AddCardRequest>
+public sealed class AddCardModelValidator : AbstractValidator<AddCardRequest>
 {
     public AddCardModelValidator()
     {
