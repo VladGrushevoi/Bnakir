@@ -5,6 +5,7 @@ using MapsterCard.Services.CardService.AddCard;
 using MapsterCard.Services.CardService.CardReadyToOperation;
 using MapsterCard.Services.CardService.GetCardById;
 using MapsterCard.Services.SystemService.AddSystemSettings;
+using MapsterCard.Services.SystemService.UpdatePercentage;
 
 namespace MapsterCard.ServiceProviders;
 
@@ -50,5 +51,34 @@ public class SystemMappingProfile : Profile
             opt 
                 => opt.MapFrom(src 
                     => src.PercentageOfOperationBetweenCardSystem.ToString(CultureInfo.CurrentCulture)));
+        CreateMap<UpdatePercentageRequest, MapsterMain>()
+            .ForMember(dest => dest.PercentageOfOperationsInCountry,
+                opt 
+                    => opt.MapFrom(src => src.PercentageInCountry))
+            .ForMember(dest => dest.PercentageOfOperationsBetweenCountry,
+                opt 
+                    => opt.MapFrom(src => src.PercentageBetweenCountry))
+            .ForMember(dest => dest.PercentageOfOperationBetweenCardSystem,
+                opt 
+                    => opt.MapFrom(src => src.PercentageBetweenCardSystem));
+        CreateMap<MapsterMain, UpdatePercentageResponse>()
+            .ForMember(dest
+                    => dest.PercentageBetweenCountry, opt
+                    => opt.MapFrom(src
+                        => src.PercentageOfOperationsBetweenCountry.ToString(CultureInfo.CurrentCulture)
+                    )
+            )
+            .ForMember(dest
+                    => dest.PercentageInCountry, opt
+                    => opt.MapFrom(src
+                        => src.PercentageOfOperationsInCountry.ToString(CultureInfo.CurrentCulture)
+                    )
+            )
+            .ForMember(dest
+                    => dest.PercentageBetweenCardSystem, opt
+                    => opt.MapFrom(src
+                        => src.PercentageOfOperationBetweenCardSystem.ToString(CultureInfo.CurrentCulture)
+                    )
+            );
     }
 }
