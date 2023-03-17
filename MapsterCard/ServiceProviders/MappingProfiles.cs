@@ -44,6 +44,11 @@ public class SystemMappingProfile : Profile
                     => dest.PercentageInCountry, 
                 opt 
                     => opt.MapFrom(src 
-                        => src.PercentageOfOperationsInCountry.ToString(CultureInfo.CurrentCulture)));
+                        => src.PercentageOfOperationsInCountry.ToString(CultureInfo.CurrentCulture)))
+            .ForMember(dest 
+                => dest.PercentageBetweenCardSystem, 
+            opt 
+                => opt.MapFrom(src 
+                    => src.PercentageOfOperationBetweenCardSystem.ToString(CultureInfo.CurrentCulture)));
     }
 }

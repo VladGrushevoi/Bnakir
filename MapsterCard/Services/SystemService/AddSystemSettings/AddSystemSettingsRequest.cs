@@ -5,7 +5,8 @@ namespace MapsterCard.Services.SystemService.AddSystemSettings;
 
 public record AddSystemSettingsRequest(decimal Balance, 
     float PercentageOfOperationsBetweenCountry, 
-    float PercentageOfOperationsInCountry) : IRequest<AddSystemSettingsResponse>;
+    float PercentageOfOperationsInCountry,
+    float PercentageOfOperationBetweenCardSystem) : IRequest<AddSystemSettingsResponse>;
 
 public record AddSystemSettingsResponse
 {
@@ -13,6 +14,7 @@ public record AddSystemSettingsResponse
     public string Balance { get; set; }
     public string PercentageBetweenCountry { get; set; }
     public string PercentageInCountry { get; set; }
+    public string PercentageBetweenCardSystem { get; set; }
 }
 
 public class AddSystemSettingsRequestValidation : AbstractValidator<AddSystemSettingsRequest>
@@ -28,6 +30,10 @@ public class AddSystemSettingsRequestValidation : AbstractValidator<AddSystemSet
             .NotNull()
             .GreaterThan(0.01f);
         RuleFor(f => f.PercentageOfOperationsInCountry)
+            .NotEmpty()
+            .NotNull()
+            .GreaterThan(0.01f);
+        RuleFor(f => f.PercentageOfOperationBetweenCardSystem)
             .NotEmpty()
             .NotNull()
             .GreaterThan(0.01f);
