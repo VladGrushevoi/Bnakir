@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using MapsterCard.Services.SystemService.AddSystemSettings;
 using MapsterCard.Services.SystemService.GetPercentage;
+using MapsterCard.Services.SystemService.TransactionConfirmation;
 using MapsterCard.Services.SystemService.UpdatePercentage;
 using MediatR;
 
@@ -24,6 +25,9 @@ public static class RouteSystemExtension
         group.MapGet("/percentage-between-card-system",
             async (IMediator mediator, CancellationToken cls)
                 => await mediator.Send(new GetPercentageBetweenCardSystemRequest(), cls));
+        group.MapPost("/confirm-transaction",
+            async (TransactionConfirmationRequest req, IMediator mediator, CancellationToken cls)
+                => await mediator.Send(req, cls));
         return group;
     }
 }

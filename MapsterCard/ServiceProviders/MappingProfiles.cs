@@ -6,6 +6,7 @@ using MapsterCard.Services.CardService.CardReadyToOperation;
 using MapsterCard.Services.CardService.GetCardById;
 using MapsterCard.Services.SystemService.AddSystemSettings;
 using MapsterCard.Services.SystemService.GetPercentage;
+using MapsterCard.Services.SystemService.TransactionConfirmation;
 using MapsterCard.Services.SystemService.UpdatePercentage;
 
 namespace MapsterCard.ServiceProviders;
@@ -28,6 +29,9 @@ public sealed class CardMappingProfile : Profile
                 => dest.IsReady, opt
                 => opt.MapFrom(src 
                     => src.Expire.HasValue && (DateOnly.FromDateTime(DateTime.Now) <= src.Expire.Value)));
+        CreateMap<SystemCard, TransactionConfirmationResponse>()
+            .ForMember(dest => dest.IsConfirm, opt =>
+                opt.MapFrom(src => src.Expire.Value >= DateOnly.FromDateTime(DateTime.Now)));
     }
 }
 
