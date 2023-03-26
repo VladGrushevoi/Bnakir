@@ -25,7 +25,7 @@ public sealed class CreateCardHandler : IRequestHandler<CreateCardRequest, Creat
         cardEntity.CardNumber = "4412" + rnd.Next(1000, 9999) + rnd.Next(1000, 9999) + rnd.Next(1000, 9999);
         cardEntity.CVV = rnd.Next(100, 999).ToString();
         cardEntity.CreatedAt = DateOnly.FromDateTime(DateTime.Now);
-        cardEntity.ExpireTo = cardEntity.CreatedAt.AddYears(3);
+        cardEntity.ExpireTo = cardEntity.CreatedAt.Value.AddYears(3);
 
         var result = await _cardRepository.CreateAsync(cardEntity, cancellationToken);
         await _unitOfWork.SaveAsync(cancellationToken);
