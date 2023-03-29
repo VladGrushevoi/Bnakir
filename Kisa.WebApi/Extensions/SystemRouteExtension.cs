@@ -1,4 +1,5 @@
-﻿using Kisa.Application.Features.MainFeatures.CreateMainSetting;
+﻿using Kisa.Application.Features.MainFeatures.ConfirmTransaction;
+using Kisa.Application.Features.MainFeatures.CreateMainSetting;
 using Kisa.Application.Features.MainFeatures.UpdateMainSetting;
 using MediatR;
 
@@ -12,6 +13,9 @@ public static class SystemRouteExtension
             => await mediator.Send(req, cls));
         group.MapPatch("/update", async (UpdateMainSettingRequest req, IMediator mediator, CancellationToken cls)
             => await mediator.Send(req, cls));
+        group.MapPost("/confirm-transaction",
+            async (ConfirmTransactionRequest req, IMediator mediator, CancellationToken cls)
+                => await mediator.Send(req, cls));
         return group;
     }
 }
