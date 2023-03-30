@@ -1,5 +1,6 @@
 ﻿using Kisa.Application.Features.MainFeatures.ConfirmTransaction;
 using Kisa.Application.Features.MainFeatures.CreateMainSetting;
+using Kisa.Application.Features.MainFeatures.GetCommissionInCountry;
 using Kisa.Application.Features.MainFeatures.UpdateMainSetting;
 using MediatR;
 
@@ -16,6 +17,8 @@ public static class SystemRouteExtension
         group.MapPost("/confirm-transaction",
             async (ConfirmTransactionRequest req, IMediator mediator, CancellationToken cls)
                 => await mediator.Send(req, cls));
+        group.MapGet("/commission-in-country", async (IMediator mediator, CancellationToken cls)
+            => await mediator.Send(new GetCommissionInCountryRequest(), cls));
         return group;
     }
 }
