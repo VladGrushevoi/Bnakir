@@ -1,5 +1,6 @@
 ﻿using Kisa.Application.Features.MainFeatures.ConfirmTransaction;
 using Kisa.Application.Features.MainFeatures.CreateMainSetting;
+using Kisa.Application.Features.MainFeatures.GetCommissionBetweenCardSystems;
 using Kisa.Application.Features.MainFeatures.GetCommissionBetweenCountry;
 using Kisa.Application.Features.MainFeatures.GetCommissionInCountry;
 using Kisa.Application.Features.MainFeatures.UpdateMainSetting;
@@ -22,6 +23,8 @@ public static class SystemRouteExtension
             => await mediator.Send(new GetCommissionInCountryRequest(), cls));
         group.MapGet("/commission-between-country", async (IMediator mediator, CancellationToken cls)
             => await mediator.Send(new GetCommissionBetweenCountryRequest(), cls));
+        group.MapGet("/commission-between-card-systems", async (IMediator mediator, CancellationToken cls)
+            => await mediator.Send(new GetCommissionBetweenCardSystemsRequest(), cls));
         return group;
     }
 }
