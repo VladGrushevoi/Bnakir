@@ -5,7 +5,8 @@ using MediatR;
 
 namespace MapsterCard.Services.SystemService.TransactionConfirmation;
 
-public sealed class TransactionConfirmationHandler : IRequestHandler<TransactionConfirmationRequest, TransactionConfirmationResponse>
+public sealed class
+    TransactionConfirmationHandler : IRequestHandler<TransactionConfirmationRequest, TransactionConfirmationResponse>
 {
     private readonly IMapper _mapper;
     private readonly ISystemCard _cardRepository;
@@ -18,7 +19,8 @@ public sealed class TransactionConfirmationHandler : IRequestHandler<Transaction
         _mainRepository = mainRepository;
     }
 
-    public async Task<TransactionConfirmationResponse> Handle(TransactionConfirmationRequest request, CancellationToken cancellationToken)
+    public async Task<TransactionConfirmationResponse> Handle(TransactionConfirmationRequest request,
+        CancellationToken cancellationToken)
     {
         SystemCard cardMap = _mapper.Map<SystemCard>(request.cardInfo);
         var cardInfos = await _cardRepository.FindCardsByProperties(cardMap);
@@ -27,6 +29,7 @@ public sealed class TransactionConfirmationHandler : IRequestHandler<Transaction
             return _mapper.Map<TransactionConfirmationResponse>(new SystemCard()
                 { Expire = DateOnly.FromDateTime(DateTime.Now.AddYears(-2)) });
         }
+
         var findCard = cardInfos.First();
         if (findCard.Expire >= DateOnly.FromDateTime(DateTime.Now))
         {

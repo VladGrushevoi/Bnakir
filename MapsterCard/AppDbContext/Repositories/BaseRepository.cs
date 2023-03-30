@@ -7,7 +7,7 @@ namespace MapsterCard.AppDbContext.Repositories;
 public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
 {
     protected readonly AppDbContext _context;
-    
+
     public BaseRepository(AppDbContext context)
     {
         _context = context;

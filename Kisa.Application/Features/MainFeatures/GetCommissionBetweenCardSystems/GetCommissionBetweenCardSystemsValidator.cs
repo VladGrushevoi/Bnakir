@@ -6,6 +6,5 @@ public sealed class GetCommissionBetweenCardSystemsValidator : AbstractValidator
 {
     public GetCommissionBetweenCardSystemsValidator()
     {
-        
     }
 }

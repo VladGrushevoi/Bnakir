@@ -5,7 +5,8 @@ using MediatR;
 
 namespace MapsterCard.Services.CardService.CardReadyToOperation;
 
-public sealed class CardReadyToOperationHandler : IRequestHandler<CardReadyToOperationRequest, CardReadyToOperationResponse>
+public sealed class
+    CardReadyToOperationHandler : IRequestHandler<CardReadyToOperationRequest, CardReadyToOperationResponse>
 {
     private readonly ISystemCard _cardRepository;
     private readonly IMapper _mapper;
@@ -16,7 +17,8 @@ public sealed class CardReadyToOperationHandler : IRequestHandler<CardReadyToOpe
         _mapper = mapper;
     }
 
-    public async Task<CardReadyToOperationResponse> Handle(CardReadyToOperationRequest request, CancellationToken cancellationToken)
+    public async Task<CardReadyToOperationResponse> Handle(CardReadyToOperationRequest request,
+        CancellationToken cancellationToken)
     {
         var cardEntity = _mapper.Map<SystemCard>(request);
         var findCards = await _cardRepository.FindCardsByProperties(cardEntity);

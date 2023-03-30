@@ -4,5 +4,4 @@ namespace Kisa.Application.Repositories;
 
 public interface IKisaMainRepository : IBaseRepository<KisaMain>
 {
-    
 }

@@ -3,7 +3,8 @@ using MediatR;
 
 namespace MapsterCard.Services.CardService.CardReadyToOperation;
 
-public sealed record CardReadyToOperationRequest(string CardNumber, string CVV, string Expire) : IRequest<CardReadyToOperationResponse>;
+public sealed record CardReadyToOperationRequest
+    (string CardNumber, string CVV, string Expire) : IRequest<CardReadyToOperationResponse>;
 
 public sealed record CardReadyToOperationResponse
 {

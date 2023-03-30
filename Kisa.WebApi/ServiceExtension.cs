@@ -10,10 +10,7 @@ public static class ServiceExtension
     {
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
-        services.Configure<ApiBehaviorOptions>(opt =>
-        {
-            opt.SuppressModelStateInvalidFilter = true;
-        });
+        services.Configure<ApiBehaviorOptions>(opt => { opt.SuppressModelStateInvalidFilter = true; });
         services.AddCors(opt =>
         {
             opt.AddDefaultPolicy(builder => builder

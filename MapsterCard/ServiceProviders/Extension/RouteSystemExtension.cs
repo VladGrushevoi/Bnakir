@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using MapsterCard.Services.SystemService.AddSystemSettings;
+﻿using MapsterCard.Services.SystemService.AddSystemSettings;
 using MapsterCard.Services.SystemService.GetPercentage;
 using MapsterCard.Services.SystemService.TransactionConfirmation;
 using MapsterCard.Services.SystemService.UpdatePercentage;
@@ -15,7 +14,7 @@ public static class RouteSystemExtension
             async (AddSystemSettingsRequest req, IMediator mediatr, CancellationToken cls)
                 => await mediatr.Send(req, cls));
         group.MapPatch("/update", async (UpdatePercentageRequest req, IMediator mediator, CancellationToken cls)
-                => await mediator.Send(req, cls));
+            => await mediator.Send(req, cls));
         group.MapGet("/percentage-in-country",
             async (IMediator mediator, CancellationToken cls)
                 => await mediator.Send(new GetPercentageInCountryRequest(), cls));

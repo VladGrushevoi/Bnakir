@@ -18,7 +18,8 @@ public sealed class CreateMainSettingHandler : IRequestHandler<CreateMainSetting
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<CreateMainSettingResponse> Handle(CreateMainSettingRequest request, CancellationToken cancellationToken)
+    public async Task<CreateMainSettingResponse> Handle(CreateMainSettingRequest request,
+        CancellationToken cancellationToken)
     {
         var entityToAdd = _mapper.Map<KisaMain>(request);
 

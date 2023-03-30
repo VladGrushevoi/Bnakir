@@ -9,7 +9,6 @@ public sealed class KisaCardRepository : BaseRepository<KisaCard>, ICardReposito
 {
     public KisaCardRepository(DataContext context) : base(context)
     {
-        
     }
 
     public async Task<IEnumerable<KisaCard>> FindCardsByProperties(KisaCard entity, CancellationToken cls)
@@ -19,18 +18,22 @@ public sealed class KisaCardRepository : BaseRepository<KisaCard>, ICardReposito
         {
             cards = cards.Where(x => entity.CardNumber == x.CardNumber);
         }
+
         if (!string.IsNullOrWhiteSpace(entity.CVV))
         {
             cards = cards.Where(x => entity.CVV == x.CVV);
         }
+
         if (!string.IsNullOrWhiteSpace(entity.CountryName))
         {
             cards = cards.Where(x => entity.CountryName == x.CountryName);
         }
+
         if (entity.ExpireTo.HasValue)
         {
             cards = cards.Where(x => entity.ExpireTo == x.ExpireTo);
         }
+
         if (entity.CreatedAt.HasValue)
         {
             cards = cards.Where(x => entity.CreatedAt == x.CreatedAt);

@@ -16,10 +16,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\Kisa.Application\Kisa.Application.csproj" />
       <ProjectReference Include="..\Kisa.Persistence\Kisa.Persistence.csproj" />
     </ItemGroup>

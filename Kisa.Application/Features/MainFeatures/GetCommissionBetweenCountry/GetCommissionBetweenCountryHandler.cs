@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Kisa.Application.Features.MainFeatures.GetCommissionBetweenCountry;
 
-public sealed class GetCommissionBetweenCountryHandler 
+public sealed class GetCommissionBetweenCountryHandler
     : IRequestHandler<GetCommissionBetweenCountryRequest, GetCommissionBetweenCountryResponse>
 {
     private readonly IMapper _mapper;
@@ -16,7 +16,8 @@ public sealed class GetCommissionBetweenCountryHandler
         _kisaMainRepository = kisaMainRepository;
     }
 
-    public async Task<GetCommissionBetweenCountryResponse> Handle(GetCommissionBetweenCountryRequest request, CancellationToken cancellationToken)
+    public async Task<GetCommissionBetweenCountryResponse> Handle(GetCommissionBetweenCountryRequest request,
+        CancellationToken cancellationToken)
     {
         var result = (await _kisaMainRepository.GetAllAsync(cancellationToken)).Last();
 

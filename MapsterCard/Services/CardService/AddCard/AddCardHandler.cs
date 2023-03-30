@@ -21,7 +21,7 @@ public sealed class AddCardHandler : IRequestHandler<AddCardRequest, AddCardResp
         var rnd = new Random();
         var cardEntity = _mapper.Map<SystemCard>(request);
         cardEntity.CardNumber = $"4411{rnd.Next(1000, 9999)}{rnd.Next(1000, 9999)}{rnd.Next(1000, 9999)}";
-        cardEntity.CVV = $"{rnd.Next(100,999)}";
+        cardEntity.CVV = $"{rnd.Next(100, 999)}";
         cardEntity.CreatedAt = DateOnly.FromDateTime(DateTime.Now);
         cardEntity.Expire = cardEntity.CreatedAt.Value.AddYears(2);
 

@@ -8,6 +8,5 @@ public sealed class MainRepository : BaseRepository<KisaMain>, IKisaMainReposito
 {
     public MainRepository(DataContext context) : base(context)
     {
-        
     }
 }

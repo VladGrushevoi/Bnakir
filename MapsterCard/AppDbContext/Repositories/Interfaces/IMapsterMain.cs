@@ -4,5 +4,4 @@ namespace MapsterCard.AppDbContext.Repositories.Interfaces;
 
 public interface IMapsterMain : IBaseRepository<MapsterMain>
 {
-    
 }

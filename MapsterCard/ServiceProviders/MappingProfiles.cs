@@ -27,7 +27,7 @@ public sealed class CardMappingProfile : Profile
         CreateMap<SystemCard, CardReadyToOperationResponse>()
             .ForMember(dest
                 => dest.IsReady, opt
-                => opt.MapFrom(src 
+                => opt.MapFrom(src
                     => src.Expire.HasValue && (DateOnly.FromDateTime(DateTime.Now) <= src.Expire.Value)));
         CreateMap<SystemCard, TransactionConfirmationResponse>()
             .ForMember(dest => dest.IsConfirm, opt =>
@@ -35,36 +35,36 @@ public sealed class CardMappingProfile : Profile
     }
 }
 
-public class SystemMappingProfile : Profile
+public sealed class SystemMappingProfile : Profile
 {
     public SystemMappingProfile()
     {
         CreateMap<AddSystemSettingsRequest, MapsterMain>();
         CreateMap<MapsterMain, AddSystemSettingsResponse>()
-            .ForMember(dest 
-                    => dest.PercentageBetweenCountry, 
-                opt 
-                    => opt.MapFrom(src 
+            .ForMember(dest
+                    => dest.PercentageBetweenCountry,
+                opt
+                    => opt.MapFrom(src
                         => src.PercentageOfOperationsBetweenCountry.ToString(CultureInfo.CurrentCulture)))
-            .ForMember(dest 
-                    => dest.PercentageInCountry, 
-                opt 
-                    => opt.MapFrom(src 
+            .ForMember(dest
+                    => dest.PercentageInCountry,
+                opt
+                    => opt.MapFrom(src
                         => src.PercentageOfOperationsInCountry.ToString(CultureInfo.CurrentCulture)))
-            .ForMember(dest 
-                => dest.PercentageBetweenCardSystem, 
-            opt 
-                => opt.MapFrom(src 
-                    => src.PercentageOfOperationBetweenCardSystem.ToString(CultureInfo.CurrentCulture)));
+            .ForMember(dest
+                    => dest.PercentageBetweenCardSystem,
+                opt
+                    => opt.MapFrom(src
+                        => src.PercentageOfOperationBetweenCardSystem.ToString(CultureInfo.CurrentCulture)));
         CreateMap<UpdatePercentageRequest, MapsterMain>()
             .ForMember(dest => dest.PercentageOfOperationsInCountry,
-                opt 
+                opt
                     => opt.MapFrom(src => src.PercentageInCountry))
             .ForMember(dest => dest.PercentageOfOperationsBetweenCountry,
-                opt 
+                opt
                     => opt.MapFrom(src => src.PercentageBetweenCountry))
             .ForMember(dest => dest.PercentageOfOperationBetweenCardSystem,
-                opt 
+                opt
                     => opt.MapFrom(src => src.PercentageBetweenCardSystem));
         CreateMap<MapsterMain, UpdatePercentageResponse>()
             .ForMember(dest
@@ -87,18 +87,18 @@ public class SystemMappingProfile : Profile
             );
         CreateMap<MapsterMain, GetPercentageInCountryResponse>()
             .ForMember(dest => dest.PercentageInCountry,
-                opt 
-                    => opt.MapFrom(src 
+                opt
+                    => opt.MapFrom(src
                         => src.PercentageOfOperationsInCountry.ToString(CultureInfo.CurrentCulture)));
         CreateMap<MapsterMain, GetPercentageBetweenCountryResponse>()
             .ForMember(dest => dest.PercentageBetweenCountry,
-                opt 
-                    => opt.MapFrom(src 
+                opt
+                    => opt.MapFrom(src
                         => src.PercentageOfOperationsBetweenCountry.ToString(CultureInfo.CurrentCulture)));
         CreateMap<MapsterMain, GetPercentageBetweenCardSystemResponse>()
             .ForMember(dest => dest.PercentageBetweenCardSystem,
-                opt 
-                    => opt.MapFrom(src 
+                opt
+                    => opt.MapFrom(src
                         => src.PercentageOfOperationBetweenCardSystem.ToString(CultureInfo.CurrentCulture)));
     }
 }

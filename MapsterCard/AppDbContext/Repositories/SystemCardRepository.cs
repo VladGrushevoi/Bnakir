@@ -22,10 +22,12 @@ public sealed class SystemCardRepository : BaseRepository<SystemCard>, ISystemCa
         {
             cards = cards.Where(c => c.CardNumber == cardEntity.CardNumber);
         }
+
         if (!string.IsNullOrEmpty(cardEntity.CVV) && !string.IsNullOrWhiteSpace(cardEntity.CVV))
         {
             cards = cards.Where(c => c.CVV == cardEntity.CVV);
         }
+
         if (!string.IsNullOrEmpty(cardEntity.CountryName) && !string.IsNullOrWhiteSpace(cardEntity.CountryName))
         {
             cards = cards.Where(c => c.CountryName == cardEntity.CountryName);
@@ -35,7 +37,7 @@ public sealed class SystemCardRepository : BaseRepository<SystemCard>, ISystemCa
         {
             cards = cards.Where(c => c.CreatedAt == cardEntity.CreatedAt);
         }
-        
+
         if (cardEntity.Expire.HasValue)
         {
             cards = cards.Where(c => c.Expire == cardEntity.Expire);

@@ -4,14 +4,18 @@ using MediatR;
 
 namespace MapsterCard.Services.SystemService.GetPercentage;
 
-public sealed class GetPercentageBetweenCountryRequest : IRequest<GetPercentageBetweenCountryResponse>{}
+public sealed class GetPercentageBetweenCountryRequest : IRequest<GetPercentageBetweenCountryResponse>
+{
+}
 
 public sealed class GetPercentageBetweenCountryResponse
 {
-    public  string PercentageBetweenCountry { get; set; }
+    public string PercentageBetweenCountry { get; set; }
 }
 
-public sealed class GetPercentageBetweenCountryHandler : IRequestHandler<GetPercentageBetweenCountryRequest, GetPercentageBetweenCountryResponse>
+public sealed class
+    GetPercentageBetweenCountryHandler : IRequestHandler<GetPercentageBetweenCountryRequest,
+        GetPercentageBetweenCountryResponse>
 {
     private readonly IMapsterMain _mainRepository;
     private readonly IMapper _mapper;
@@ -22,7 +26,8 @@ public sealed class GetPercentageBetweenCountryHandler : IRequestHandler<GetPerc
         _mapper = mapper;
     }
 
-    public async Task<GetPercentageBetweenCountryResponse> Handle(GetPercentageBetweenCountryRequest request, CancellationToken cancellationToken)
+    public async Task<GetPercentageBetweenCountryResponse> Handle(GetPercentageBetweenCountryRequest request,
+        CancellationToken cancellationToken)
     {
         var allRecord = await _mainRepository.GetAllAsync();
         var mainEntity = allRecord.First();

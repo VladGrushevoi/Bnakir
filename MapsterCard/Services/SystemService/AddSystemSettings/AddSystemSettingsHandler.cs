@@ -16,7 +16,8 @@ public sealed class AddSystemSettingsHandler : IRequestHandler<AddSystemSettings
         _mapsterRepository = mapsterRepository;
     }
 
-    public async Task<AddSystemSettingsResponse> Handle(AddSystemSettingsRequest request, CancellationToken cancellationToken)
+    public async Task<AddSystemSettingsResponse> Handle(AddSystemSettingsRequest request,
+        CancellationToken cancellationToken)
     {
         var systemEntity = _mapper.Map<MapsterMain>(request);
         var result = await _mapsterRepository.AddAsync(systemEntity);

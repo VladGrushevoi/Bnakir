@@ -1,5 +1,6 @@
 ﻿using MapsterCard.AppDbContext.Entities;
 using Microsoft.EntityFrameworkCore;
+
 namespace MapsterCard.AppDbContext;
 
 public sealed class AppDbContext : DbContext
@@ -9,6 +10,5 @@ public sealed class AppDbContext : DbContext
 
     public AppDbContext(DbContextOptions opt) : base(opt)
     {
-        
     }
 }

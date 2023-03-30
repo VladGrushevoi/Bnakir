@@ -6,7 +6,8 @@ using MediatR;
 
 namespace Kisa.Application.Features.CardFeatures.CardReadyToOperation;
 
-public sealed class CardReadyToOperationHandler : IRequestHandler<CardReadyToOperationRequest, CardReadyToOperationResponse>
+public sealed class
+    CardReadyToOperationHandler : IRequestHandler<CardReadyToOperationRequest, CardReadyToOperationResponse>
 {
     private readonly IMapper _mapper;
     private readonly ICardRepository _cardRepository;
@@ -17,7 +18,8 @@ public sealed class CardReadyToOperationHandler : IRequestHandler<CardReadyToOpe
         _cardRepository = cardRepository;
     }
 
-    public async Task<CardReadyToOperationResponse> Handle(CardReadyToOperationRequest request, CancellationToken cancellationToken)
+    public async Task<CardReadyToOperationResponse> Handle(CardReadyToOperationRequest request,
+        CancellationToken cancellationToken)
     {
         var cardEntity = _mapper.Map<KisaCard>(request);
 

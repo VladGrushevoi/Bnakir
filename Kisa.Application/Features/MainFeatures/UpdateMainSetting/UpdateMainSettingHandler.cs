@@ -18,12 +18,13 @@ public sealed class UpdateMainSettingHandler : IRequestHandler<UpdateMainSetting
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<UpdateMainSettingResponse> Handle(UpdateMainSettingRequest request, CancellationToken cancellationToken)
+    public async Task<UpdateMainSettingResponse> Handle(UpdateMainSettingRequest request,
+        CancellationToken cancellationToken)
     {
         var entityToUpdate = _mapper.Map<KisaMain>(request);
 
         var result = await _kisaMainRepository.UpdateAsync(entityToUpdate, cancellationToken);
-        
+
         await _unitOfWork.SaveAsync(cancellationToken);
         return _mapper.Map<UpdateMainSettingResponse>(result);
     }

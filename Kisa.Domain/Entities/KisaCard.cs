@@ -3,7 +3,7 @@
 namespace Kisa.Domain.Entities;
 
 public sealed class KisaCard : BaseEntity
-{ 
+{
     public string CardNumber { get; set; }
     public string CVV { get; set; }
     public string CountryName { get; set; }

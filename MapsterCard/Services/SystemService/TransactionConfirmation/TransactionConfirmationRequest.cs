@@ -5,7 +5,7 @@ using MediatR;
 namespace MapsterCard.Services.SystemService.TransactionConfirmation;
 
 public sealed record TransactionConfirmationRequest(
-    CardReadyToOperationRequest cardInfo, 
+    CardReadyToOperationRequest cardInfo,
     decimal Comission) : IRequest<TransactionConfirmationResponse>;
 
 public sealed record TransactionConfirmationResponse

@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Kisa.Application.Common.Behaviors;
 
-public sealed class ValidationBehavior <TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+public sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators;
@@ -14,10 +14,11 @@ public sealed class ValidationBehavior <TRequest, TResponse> : IPipelineBehavior
         _validators = validators;
     }
 
-    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next,
+        CancellationToken cancellationToken)
     {
         if (!_validators.Any()) return await next();
-        
+
         var context = new ValidationContext<TRequest>(request);
 
         var errors = _validators

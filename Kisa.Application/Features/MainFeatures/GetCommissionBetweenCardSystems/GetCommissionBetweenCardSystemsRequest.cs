@@ -2,5 +2,5 @@
 
 namespace Kisa.Application.Features.MainFeatures.GetCommissionBetweenCardSystems;
 
-public sealed record GetCommissionBetweenCardSystemsRequest 
+public sealed record GetCommissionBetweenCardSystemsRequest
     : IRequest<GetCommissionBetweenCardSystemsResponse>;

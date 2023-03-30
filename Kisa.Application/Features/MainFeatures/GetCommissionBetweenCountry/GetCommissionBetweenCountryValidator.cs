@@ -6,6 +6,5 @@ public sealed class GetCommissionBetweenCountryValidator : AbstractValidator<Get
 {
     public GetCommissionBetweenCountryValidator()
     {
-        
     }
 }
