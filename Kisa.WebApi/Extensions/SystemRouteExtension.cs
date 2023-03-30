@@ -1,5 +1,6 @@
 ﻿using Kisa.Application.Features.MainFeatures.ConfirmTransaction;
 using Kisa.Application.Features.MainFeatures.CreateMainSetting;
+using Kisa.Application.Features.MainFeatures.GetCommissionBetweenCountry;
 using Kisa.Application.Features.MainFeatures.GetCommissionInCountry;
 using Kisa.Application.Features.MainFeatures.UpdateMainSetting;
 using MediatR;
@@ -19,6 +20,8 @@ public static class SystemRouteExtension
                 => await mediator.Send(req, cls));
         group.MapGet("/commission-in-country", async (IMediator mediator, CancellationToken cls)
             => await mediator.Send(new GetCommissionInCountryRequest(), cls));
+        group.MapGet("/commission-between-country", async (IMediator mediator, CancellationToken cls)
+            => await mediator.Send(new GetCommissionBetweenCountryRequest(), cls));
         return group;
     }
 }
