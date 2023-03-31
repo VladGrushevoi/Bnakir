@@ -1,5 +1,3 @@
-using MapsterCard.AppDbContext.Entities;
-using MapsterCard.AppDbContext.Repositories.Interfaces;
 using MapsterCard.ServiceProviders;
 using MapsterCard.ServiceProviders.Extension;
 
