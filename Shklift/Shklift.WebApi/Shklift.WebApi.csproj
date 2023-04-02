@@ -7,7 +7,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Extensions" />
+      <PackageReference Include="Mapster.DependencyInjection" Version="1.0.1-pre02" />
+      <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
+      <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
+      <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Shklift.Application\Shklift.Application.csproj" />
+      <ProjectReference Include="..\Shklift.Persistence\Shklift.Persistence.csproj" />
+      <ProjectReference Include="..\Shklift.UnitTest\Shklift.UnitTest.csproj" />
     </ItemGroup>
 
 </Project>
