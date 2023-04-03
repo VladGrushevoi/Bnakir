@@ -1,12 +1,14 @@
-﻿namespace Shklift.WebApi.Extensions;
+﻿using Shklift.Persistence.Context;
+
+namespace Shklift.WebApi.Extensions;
 
 public static class ConfigureApiApp
 {
     public static void ConfigurePipeline(this WebApplication app)
     {
-        // var serviceScope = app.Services.CreateScope();
-        // var dataContext = serviceScope.ServiceProvider.GetService<DataContext>();
-        // dataContext?.Database.EnsureCreated();
+        var serviceScope = app.Services.CreateScope();
+        var dataContext = serviceScope.ServiceProvider.GetService<DataContext>();
+        dataContext?.Database.EnsureCreated();
         app.MapGroup("/transaction")
             .TransactionRoute()
             .WithTags("Public");
