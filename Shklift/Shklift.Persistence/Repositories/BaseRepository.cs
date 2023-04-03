@@ -26,6 +26,7 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
 
     public async Task<TEntity> CreateAsync(TEntity entity, CancellationToken cls)
     {
+        entity.CreatedAt = DateOnly.FromDateTime(DateTime.Now);
         var addedEntity = await _context.Set<TEntity>().AddAsync(entity, cls);
 
         return addedEntity.Entity;
@@ -35,6 +36,7 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
     {
         return await Task.Run(() =>
         {
+            entity.UpdatedAt = DateOnly.FromDateTime(DateTime.Now);
             var result = _context.Set<TEntity>().Update(entity);
 
             return result.Entity;
