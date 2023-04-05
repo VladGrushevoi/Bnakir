@@ -9,6 +9,7 @@ public static class AppServiceProvider
 {
     public static IServiceCollection AddAppService(this IServiceCollection services)
     {
+        services.AddCors();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
