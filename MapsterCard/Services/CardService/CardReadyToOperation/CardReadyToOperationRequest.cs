@@ -15,8 +15,8 @@ public sealed class CardReadyToOperationValidation : AbstractValidator<CardReady
 {
     public CardReadyToOperationValidation()
     {
-        RuleFor(f => f.CardNumber).NotNull().NotEmpty().Length(16);
-        RuleFor(f => f.CVV).NotEmpty().NotEmpty().Length(3);
-        RuleFor(f => f.Expire).NotEmpty().NotNull();
+        RuleFor(f => f.CardNumber).Length(16);
+        RuleFor(f => f.CVV).Length(3);
+        RuleFor(f => f.Expire);
     }
 }
