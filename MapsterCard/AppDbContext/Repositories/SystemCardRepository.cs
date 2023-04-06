@@ -38,9 +38,9 @@ public sealed class SystemCardRepository : BaseRepository<SystemCard>, ISystemCa
             cards = cards.Where(c => c.CreatedAt == cardEntity.CreatedAt);
         }
 
-        if (cardEntity.Expire.HasValue && cardEntity.Expire.Value != default)
+        if (cardEntity.ExpireTo.HasValue && cardEntity.ExpireTo.Value != default)
         {
-            cards = cards.Where(c => c.Expire == cardEntity.Expire);
+            cards = cards.Where(c => c.ExpireTo == cardEntity.ExpireTo);
         }
 
         return await cards.ToListAsync();

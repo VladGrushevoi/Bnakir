@@ -23,7 +23,7 @@ public sealed class AddCardHandler : IRequestHandler<AddCardRequest, AddCardResp
         cardEntity.CardNumber = $"4411{rnd.Next(1000, 9999)}{rnd.Next(1000, 9999)}{rnd.Next(1000, 9999)}";
         cardEntity.CVV = $"{rnd.Next(100, 999)}";
         cardEntity.CreatedAt = DateOnly.FromDateTime(DateTime.Now);
-        cardEntity.Expire = cardEntity.CreatedAt.Value.AddYears(2);
+        cardEntity.ExpireTo = cardEntity.CreatedAt.Value.AddYears(2);
 
         var result = await _cardRepository.AddAsync(cardEntity);
 

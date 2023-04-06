@@ -27,11 +27,11 @@ public sealed class
         if (!cardInfos.Any())
         {
             return _mapper.Map<TransactionConfirmationResponse>(new SystemCard()
-                { Expire = DateOnly.FromDateTime(DateTime.Now.AddYears(-2)) });
+                { ExpireTo = DateOnly.FromDateTime(DateTime.Now.AddYears(-2)) });
         }
 
         var findCard = cardInfos.First();
-        if (findCard.Expire >= DateOnly.FromDateTime(DateTime.Now))
+        if (findCard.ExpireTo >= DateOnly.FromDateTime(DateTime.Now))
         {
             var systemSettings = await _mainRepository.GetAllAsync();
             var systemEntity = systemSettings.First();

@@ -20,18 +20,18 @@ public sealed class CardMappingProfile : Profile
         CreateMap<GetCardByIdRequest, SystemCard>();
         CreateMap<SystemCard, GetCardByIdResponse>();
         CreateMap<CardReadyToOperationRequest, SystemCard>()
-            .ForMember(dest => dest.Expire,
+            .ForMember(dest => dest.ExpireTo,
                 opt
                     => opt.MapFrom(src
-                        => DateOnly.Parse(src.Expire)));
+                        => DateOnly.Parse(src.ExpireTo)));
         CreateMap<SystemCard, CardReadyToOperationResponse>()
             .ForMember(dest
                 => dest.IsReady, opt
                 => opt.MapFrom(src
-                    => src.Expire.HasValue && (DateOnly.FromDateTime(DateTime.Now) <= src.Expire.Value)));
+                    => src.ExpireTo.HasValue && (DateOnly.FromDateTime(DateTime.Now) <= src.ExpireTo.Value)));
         CreateMap<SystemCard, TransactionConfirmationResponse>()
             .ForMember(dest => dest.IsConfirm, opt =>
-                opt.MapFrom(src => src.Expire.Value >= DateOnly.FromDateTime(DateTime.Now)));
+                opt.MapFrom(src => src.ExpireTo.Value >= DateOnly.FromDateTime(DateTime.Now)));
     }
 }
 

@@ -11,5 +11,5 @@ public sealed class SystemCard : BaseEntity
     [MinLength(3)] public string? CountryName { get; set; }
 
     public DateOnly? CreatedAt { get; set; }
-    public DateOnly? Expire { get; set; }
+    public DateOnly? ExpireTo { get; set; }
 }
