@@ -14,7 +14,7 @@ public record CreateTransactionRequest : IRequest<CreateTransactionResponse>
     public string FromCardCVV { get; set; }
     
     [Required]
-    [RegularExpression("\\d{2}-\\d{2}-\\d{4}", ErrorMessage = "Date must be equal to patter dd-mm-yyyy")]
+    [RegularExpression("\\d{4}-\\d{2}-\\d{2}", ErrorMessage = "Date must be equal to patter yyyy-mm-dd")]
     public string FromCardExpire { get; set; }
     
     [Required]

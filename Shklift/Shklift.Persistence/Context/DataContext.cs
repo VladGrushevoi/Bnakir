@@ -10,9 +10,9 @@ public sealed class DataContext : DbContext
     
     public DataContext(DbContextOptions<DataContext> opt) : base(opt)
     {
-        if (!Database.EnsureCreated())
-        {
-            Database.Migrate();
-        }
+        // if (!Database.EnsureCreated())
+        // {
+        //     Database.Migrate();
+        // }
     }
 }
