@@ -47,36 +47,36 @@ sealed class ApiCallCheckCardBuilder
         bool isToCardReady = false;
         var fromCardNumber = string.Join("",_transReq.FromCardNumber.Take(4));
         var toCardNumber = string.Join("",_transReq.CardNumberReceiver.Take(4));
-        if (fromCardNumber == "4412") //4412 is constant 4 first number of kisa card
+        isFromCardReady = fromCardNumber switch
         {
-            isFromCardReady = await GetIsReadyCardAsync("http://localhost:5046/card/is-ready-card", new
-            {
-                CardNumber = _transReq.FromCardNumber,
-                CVV = _transReq.FromCardCVV,
-                ExpireTo = _transReq.FromCardExpire
-            }, cls);
-        }else if (fromCardNumber == "4411") //4411 is constant 4 first number of mapster card
+            //4412 is constant 4 first number of kisa card
+            "4412" => await GetIsReadyCardAsync("http://localhost:5046/card/is-ready-card",
+                new
+                {
+                    CardNumber = _transReq.FromCardNumber,
+                    CVV = _transReq.FromCardCVV,
+                    ExpireTo = _transReq.FromCardExpire
+                }, cls),
+            //4411 is constant 4 first number of mapster card
+            "4411" => await GetIsReadyCardAsync("http://localhost:5229/card/accept-operation",
+                new
+                {
+                    CardNumber = _transReq.FromCardNumber,
+                    CVV = _transReq.FromCardCVV,
+                    ExpireTo = _transReq.FromCardExpire
+                }, cls),
+            _ => isFromCardReady
+        };
+        isToCardReady = toCardNumber switch
         {
-            isFromCardReady = await GetIsReadyCardAsync("http://localhost:5229/card/accept-operation", new
-            {
-                CardNumber = _transReq.FromCardNumber,
-                CVV = _transReq.FromCardCVV,
-                ExpireTo = _transReq.FromCardExpire
-            }, cls);
-        }
-        if (toCardNumber == "4412") //4412 is constant 4 first number of kisa card
-        {
-            isToCardReady = await GetIsReadyCardAsync("http://localhost:5046/card/is-ready-card", new
-            {
-                CardNumber = _transReq.CardNumberReceiver
-            }, cls);
-        }else if (toCardNumber == "4411") //4412 is constant 4 first number of mapster card
-        {
-            isToCardReady = await GetIsReadyCardAsync("http://localhost:5229/card/accept-operation", new
-            {
-                CardNumber = _transReq.CardNumberReceiver
-            }, cls);
-        }
+            //4412 is constant 4 first number of kisa card
+            "4412" => await GetIsReadyCardAsync("http://localhost:5046/card/is-ready-card",
+                new { CardNumber = _transReq.CardNumberReceiver }, cls),
+            //4411 is constant 4 first number of mapster card
+            "4411" => await GetIsReadyCardAsync("http://localhost:5229/card/accept-operation",
+                new { CardNumber = _transReq.CardNumberReceiver }, cls),
+            _ => isToCardReady
+        };
 
         _result = isFromCardReady && isToCardReady;
     }
