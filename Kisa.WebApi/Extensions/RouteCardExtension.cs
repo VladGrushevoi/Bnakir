@@ -1,6 +1,7 @@
 ﻿using Kisa.Application.Features.CardFeatures.CardReadyToOperation;
 using Kisa.Application.Features.CardFeatures.CreateCard;
 using Kisa.Application.Features.CardFeatures.GetCardById;
+using Kisa.Application.Features.CardFeatures.GetCardByProperties;
 using MediatR;
 
 namespace Kisa.WebApi.Extensions;
@@ -18,6 +19,8 @@ public static class RouteGroupExtension
         group.MapGet("/{id:guid}",
             async (Guid id, IMediator mediator, CancellationToken cls)
                 => await mediator.Send(new GetCardByIdRequest(id), cls));
+        group.MapPost("/search-card", async (GetCardByPropertiesRequest req, IMediator mediator, CancellationToken cls)
+            => await mediator.Send(req, cls));
         return group;
     }
 }
