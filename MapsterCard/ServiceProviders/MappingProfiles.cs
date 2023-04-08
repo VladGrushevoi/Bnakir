@@ -4,6 +4,7 @@ using MapsterCard.AppDbContext.Entities;
 using MapsterCard.Services.CardService.AddCard;
 using MapsterCard.Services.CardService.CardReadyToOperation;
 using MapsterCard.Services.CardService.GetCardById;
+using MapsterCard.Services.CardService.GetCardByProperties;
 using MapsterCard.Services.SystemService.AddSystemSettings;
 using MapsterCard.Services.SystemService.GetPercentage;
 using MapsterCard.Services.SystemService.TransactionConfirmation;
@@ -32,6 +33,16 @@ public sealed class CardMappingProfile : Profile
         CreateMap<SystemCard, TransactionConfirmationResponse>()
             .ForMember(dest => dest.IsConfirm, opt =>
                 opt.MapFrom(src => src.ExpireTo.Value >= DateOnly.FromDateTime(DateTime.Now)));
+        CreateMap<GetCardByPropertiesRequest, SystemCard>()
+            .ForMember(dest => dest.ExpireTo, opt 
+            => opt.MapFrom(src => DateOnly.Parse(src.ExpireTo)))
+            .ForMember(dest => dest.CreatedAt, opt 
+                => opt.MapFrom(src => DateOnly.Parse(src.CreatedAt)));
+        CreateMap<SystemCard, GetCardByPropertiesResponse>()
+            .ForMember(dest => dest.ExpireTo, opt 
+            => opt.MapFrom(src => src.ExpireTo!.Value.ToString()))
+            .ForMember(dest => dest.CreatedAt, opt 
+                => opt.MapFrom(src => src.CreatedAt!.Value.ToString()));
     }
 }
 

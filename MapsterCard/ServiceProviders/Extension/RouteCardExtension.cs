@@ -1,8 +1,8 @@
 ﻿using MapsterCard.Services.CardService.AddCard;
 using MapsterCard.Services.CardService.CardReadyToOperation;
 using MapsterCard.Services.CardService.GetCardById;
+using MapsterCard.Services.CardService.GetCardByProperties;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
 
 namespace MapsterCard.ServiceProviders.Extension;
 
@@ -16,6 +16,9 @@ public static class RouteCardExtension
             => mediator.Send(new GetCardByIdRequest(id), cls));
         group.MapPost("/accept-operation",
             async (CardReadyToOperationRequest req, IMediator mediator, CancellationToken cls)
+                => await mediator.Send(req, cls));
+        group.MapPost("/search-by-properties",
+            async (GetCardByPropertiesRequest req, IMediator mediator, CancellationToken cls)
                 => await mediator.Send(req, cls));
         return group;
     }
