@@ -11,7 +11,7 @@ public static class ServiceExtension
 {
     public static void ConfigureApplication(this IServiceCollection services)
     {
-        services.AddMapster();
+        //services.AddMapster();
         var typeAdapterConfig = TypeAdapterConfig.GlobalSettings;
         Assembly appAssembly = typeof(BaseDto<,>).Assembly;
         typeAdapterConfig.Scan(appAssembly);
