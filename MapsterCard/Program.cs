@@ -1,3 +1,4 @@
+using MapsterCard.AppDbContext;
 using MapsterCard.ServiceProviders;
 using MapsterCard.ServiceProviders.Extension;
 
@@ -8,6 +9,10 @@ builder.Services.AddAppService()
     .AddDatabase(builder.Configuration);
 
 var app = builder.Build();
+
+var serviceScope = app.Services.CreateScope();
+var dataContext = serviceScope.ServiceProvider.GetService<AppDbContext>();
+dataContext.Database.EnsureCreated();
 
 app.MapGroup("/card")
     .MapSystemCard()

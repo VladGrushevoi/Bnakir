@@ -6,7 +6,7 @@ namespace MapsterCard.Services.CardService.GetCardById;
 
 public sealed record GetCardByIdRequest([FromQuery] Guid id) : IRequest<GetCardByIdResponse>;
 
-public sealed record GetCardByIdResponse(string CardNumber, string CVV, string CountryName, DateOnly Expire);
+public sealed record GetCardByIdResponse(string CardNumber, string CVV, string CountryName, DateOnly ExpireTo);
 
 public sealed class GetCardByIdValidation : AbstractValidator<GetCardByIdRequest>
 {
