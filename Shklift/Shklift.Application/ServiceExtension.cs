@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using ShkliftApplication.Common;
 using ShkliftApplication.Common.Behavior;
+using ShkliftApplication.Features.CardSystemApi;
 
 namespace ShkliftApplication;
 
@@ -21,5 +22,7 @@ public static class ServiceExtension
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(TransactionInfoValidation<,>));
         });
+
+        services.AddScoped<IBaseApi, CardSystemApiCaller>();
     }
 }

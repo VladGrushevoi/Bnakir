@@ -1,10 +1,10 @@
-﻿namespace ShkliftApplication.Features.CardSystemApi;
+﻿using ShkliftApplication.Features.TransactionFeature.CreateTransaction;
 
-public interface IBaseApi<in TRequest, TResponse> 
-    where TRequest : class
-    where TResponse : class
+namespace ShkliftApplication.Features.CardSystemApi;
+
+public interface IBaseApi
 {
-    Task<TResponse> IsValidCard(TRequest req);
-    Task<TResponse> ConfirmTransaction(TRequest req);
-    Task<TResponse> GetCardInfo(TRequest req);
+    Task<bool> IsValidCard(CreateTransactionRequest reqData, CancellationToken cls);
+    Task<bool> ConfirmTransaction(object req);
+    Task<object> GetCardInfo(object req);
 }
