@@ -1,21 +1,21 @@
 ﻿using System.Text.Json;
-using ShkliftApplication.Common.Behavior;
 using ShkliftApplication.Common.Exception;
+using ShkliftApplication.Features.CardSystemApi.Models.Request;
+using ShkliftApplication.Features.CardSystemApi.Models.Response;
 using ShkliftApplication.Features.TransactionFeature.CreateTransaction;
-using IsReadyCard = ShkliftApplication.Features.CardSystemApi.Models.IsReadyCard;
 
 namespace ShkliftApplication.Features.CardSystemApi;
 
 public class CardSystemApiCaller : IBaseApi
 {
     private readonly HttpClient _httpClient = new();
-    
+
     public async Task<bool> IsValidCard(CreateTransactionRequest reqData, CancellationToken cls)
     {
         IsReadyCard isFromCardReady;
         IsReadyCard isToCardReady;
-        var fromCardNumber = string.Join("",reqData.FromCardNumber.Take(4));
-        var toCardNumber = string.Join("",reqData.CardNumberReceiver.Take(4));
+        var fromCardNumber = string.Join("", reqData.FromCardNumber.Take(4));
+        var toCardNumber = string.Join("", reqData.CardNumberReceiver.Take(4));
         isFromCardReady = fromCardNumber switch
         {
             //4412 is constant 4 first number of kisa card
@@ -34,7 +34,7 @@ public class CardSystemApiCaller : IBaseApi
                     CVV = reqData.FromCardCVV,
                     ExpireTo = reqData.FromCardExpire
                 }, cls),
-            _ => new IsReadyCard(false)
+            _ => new IsReadyCard()
         };
         isToCardReady = toCardNumber switch
         {
@@ -44,23 +44,47 @@ public class CardSystemApiCaller : IBaseApi
             //4411 is constant 4 first number of mapster card
             "4411" => await SendAsync<IsReadyCard>("http://localhost:5229/card/accept-operation",
                 new { CardNumber = reqData.CardNumberReceiver }, cls),
-            _ => new IsReadyCard(false)
+            _ => new IsReadyCard()
         };
 
         return isFromCardReady.isReady && isToCardReady.isReady;
     }
 
-    public Task<bool> ConfirmTransaction(object req)
+    public async Task<bool> ConfirmTransaction(ConfirmTransactionData reqData, CancellationToken cls)
     {
-        throw new NotImplementedException();
+        string cardSystemNumber = string.Join("", reqData.Card.CardNumber.Take(4));
+        BaseTransactionConfirmed confirmed = cardSystemNumber switch
+        {
+            "4412" => await SendAsync<TransactionConfirmedKisa>("http://localhost:5046/system/confirm-transaction",
+                new
+                {
+                    reqData.Card, reqData.Commission
+                }, cls),
+
+            "4411" => await SendAsync<TransactionConfirmedMapster>("http://localhost:5229/system/confirm-transaction",
+                new
+                {
+                    CardInfo = reqData.Card, reqData.Commission
+                }, cls),
+
+            _ => new TransactionConfirmedKisa()
+        };
+
+        if (confirmed is TransactionConfirmedKisa kisa)
+        {
+            return kisa.IsTransactionConfirmed;
+        }
+        
+        return confirmed is TransactionConfirmedMapster { isConfirm: true };
     }
 
     public Task<object> GetCardInfo(object req)
     {
         throw new NotImplementedException();
     }
-    
-    async ValueTask<TResponse> SendAsync<TResponse>(string path, object data, CancellationToken cls) where TResponse : class
+
+    async ValueTask<TResponse> SendAsync<TResponse>(string path, object data, CancellationToken cls)
+        where TResponse : class
     {
         var dataJson = JsonSerializer.Serialize(data);
         var request = new HttpRequestMessage(HttpMethod.Post, path);
@@ -71,6 +95,7 @@ public class CardSystemApiCaller : IBaseApi
         {
             throw new BadRequestException("Request parameters is invalid");
         }
+
         var resultString = await response.Content.ReadAsStringAsync(cls);
         var result = JsonSerializer.Deserialize<TResponse>(resultString);
 

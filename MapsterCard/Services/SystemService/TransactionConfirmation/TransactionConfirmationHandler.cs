@@ -35,7 +35,7 @@ public sealed class
         {
             var systemSettings = await _mainRepository.GetAllAsync();
             var systemEntity = systemSettings.First();
-            systemEntity.Balance += request.Comission;
+            systemEntity.Balance += request.Commission;
             await _mainRepository.UpdateAsync(systemEntity);
         }
 

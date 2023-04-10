@@ -6,7 +6,7 @@ namespace MapsterCard.Services.SystemService.TransactionConfirmation;
 
 public sealed record TransactionConfirmationRequest(
     CardReadyToOperationRequest cardInfo,
-    decimal Comission) : IRequest<TransactionConfirmationResponse>;
+    decimal Commission) : IRequest<TransactionConfirmationResponse>;
 
 public sealed record TransactionConfirmationResponse
 {
@@ -24,6 +24,6 @@ class TransactionConfirmationRequestValidation : AbstractValidator<TransactionCo
             .NotNull().NotEmpty().Length(3);
         RuleFor(f => f.cardInfo.ExpireTo.ToString())
             .NotNull().NotEmpty().GreaterThanOrEqualTo(DateOnly.FromDateTime(DateTime.Now).ToString());
-        RuleFor(f => f.Comission).NotNull().GreaterThan(0);
+        RuleFor(f => f.Commission).NotNull().GreaterThan(0);
     }
 }
