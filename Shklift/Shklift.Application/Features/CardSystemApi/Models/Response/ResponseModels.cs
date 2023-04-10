@@ -12,7 +12,7 @@ class BaseTransactionConfirmed
 
 sealed class TransactionConfirmedKisa : BaseTransactionConfirmed
 {
-    public bool IsTransactionConfirmed { get; set; }
+    public bool isTransactionConfirmed { get; set; }
 }
 
 sealed class TransactionConfirmedMapster : BaseTransactionConfirmed

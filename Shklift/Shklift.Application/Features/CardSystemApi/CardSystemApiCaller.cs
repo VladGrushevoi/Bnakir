@@ -67,12 +67,12 @@ public class CardSystemApiCaller : IBaseApi
                     CardInfo = reqData.Card, reqData.Commission
                 }, cls),
 
-            _ => new TransactionConfirmedKisa()
+            _ => throw new BadRequestException($"Card is not available {reqData.Card.CardNumber}")
         };
 
         if (confirmed is TransactionConfirmedKisa kisa)
         {
-            return kisa.IsTransactionConfirmed;
+            return kisa.isTransactionConfirmed;
         }
         
         return confirmed is TransactionConfirmedMapster { isConfirm: true };

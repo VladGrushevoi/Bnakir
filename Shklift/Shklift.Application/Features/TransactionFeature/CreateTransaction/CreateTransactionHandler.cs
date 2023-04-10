@@ -31,7 +31,7 @@ public sealed class CreateTransactionHandler : IRequestHandler<CreateTransaction
         /*
          * 1. Select transaction type(get commission type from system card)
          * 2. Get money from bank system
-         * 3. Send commission money to card system (confirm transaction)
+         * 3. Send commission money to card system (confirm transaction) (+)
          * 4. Send commission to shklift system
          * 5. Send money to card number 
          */
