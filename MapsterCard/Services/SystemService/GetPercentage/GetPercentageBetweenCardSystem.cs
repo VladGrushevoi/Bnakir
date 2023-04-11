@@ -11,7 +11,7 @@ public sealed class GetPercentageBetweenCardSystemRequest : IRequest<GetPercenta
 
 public sealed class GetPercentageBetweenCardSystemResponse
 {
-    public string PercentageBetweenCardSystem { get; set; }
+    public float PercentageBetweenCardSystem { get; set; }
 }
 
 public class GetPercentageBetweenCardSystem : IRequestHandler<GetPercentageBetweenCardSystemRequest,

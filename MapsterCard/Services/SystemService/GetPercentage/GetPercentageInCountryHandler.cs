@@ -8,7 +8,7 @@ public sealed record GetPercentageInCountryRequest : IRequest<GetPercentageInCou
 
 public sealed record GetPercentageInCountryResponse
 {
-    public string PercentageInCountry { get; set; }
+    public float PercentageInCountry { get; set; }
 }
 
 public sealed class

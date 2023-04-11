@@ -100,16 +100,16 @@ public sealed class SystemMappingProfile : Profile
             .ForMember(dest => dest.PercentageInCountry,
                 opt
                     => opt.MapFrom(src
-                        => src.PercentageOfOperationsInCountry.ToString(CultureInfo.CurrentCulture)));
+                        => src.PercentageOfOperationsInCountry));
         CreateMap<MapsterMain, GetPercentageBetweenCountryResponse>()
             .ForMember(dest => dest.PercentageBetweenCountry,
                 opt
                     => opt.MapFrom(src
-                        => src.PercentageOfOperationsBetweenCountry.ToString(CultureInfo.CurrentCulture)));
+                        => src.PercentageOfOperationsBetweenCountry));
         CreateMap<MapsterMain, GetPercentageBetweenCardSystemResponse>()
             .ForMember(dest => dest.PercentageBetweenCardSystem,
                 opt
                     => opt.MapFrom(src
-                        => src.PercentageOfOperationBetweenCardSystem.ToString(CultureInfo.CurrentCulture)));
+                        => src.PercentageOfOperationBetweenCardSystem));
     }
 }

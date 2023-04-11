@@ -10,7 +10,7 @@ public sealed class GetPercentageBetweenCountryRequest : IRequest<GetPercentageB
 
 public sealed class GetPercentageBetweenCountryResponse
 {
-    public string PercentageBetweenCountry { get; set; }
+    public float PercentageBetweenCountry { get; set; }
 }
 
 public sealed class
