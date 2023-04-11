@@ -12,11 +12,9 @@ public class CardSystemApiCaller : IBaseApi
 
     public async Task<bool> IsValidCard(CreateTransactionRequest reqData, CancellationToken cls)
     {
-        IsReadyCard isFromCardReady;
-        IsReadyCard isToCardReady;
         var fromCardNumber = string.Join("", reqData.FromCardNumber.Take(4));
         var toCardNumber = string.Join("", reqData.CardNumberReceiver.Take(4));
-        isFromCardReady = fromCardNumber switch
+        var isFromCardReady = fromCardNumber switch
         {
             //4412 is constant 4 first number of kisa card
             "4412" => await SendAsync<IsReadyCard>("http://localhost:5046/card/is-ready-card",
@@ -36,7 +34,7 @@ public class CardSystemApiCaller : IBaseApi
                 }, cls),
             _ => new IsReadyCard()
         };
-        isToCardReady = toCardNumber switch
+        var isToCardReady = toCardNumber switch
         {
             //4412 is constant 4 first number of kisa card
             "4412" => await SendAsync<IsReadyCard>("http://localhost:5046/card/is-ready-card",
@@ -78,9 +76,140 @@ public class CardSystemApiCaller : IBaseApi
         return confirmed is TransactionConfirmedMapster { isConfirm: true };
     }
 
-    public Task<object> GetCardInfo(object req)
+    public async Task<CardInfo?> GetCardInfo(Card reqData, CancellationToken cls)
     {
-        throw new NotImplementedException();
+        string cardSystemNumber = string.Join("", reqData.CardNumber.Take(4));
+
+        CardInfo? cardInfo = cardSystemNumber switch
+        {
+            "4411" => await SendAsync<CardInfo>("http://localhost:5229/card/search-by-properties", reqData, cls),
+            "4412" => await SendAsync<CardInfo>("http://localhost:5046/card/search-card", reqData, cls),
+            _ => default
+        };
+
+        return cardInfo;
+    }
+
+    public async Task<float> GetTransactionCommission(CreateTransactionRequest request, CancellationToken cancellationToken)
+    {
+        string fromCardSystem = string.Join("", request.FromCardNumber.Take(4));
+        string toCardSystem = string.Join("", request.CardNumberReceiver.Take(4));
+        if (fromCardSystem != toCardSystem)
+        {
+            return await GetCommissionBetweenTransactionSystem(fromCardSystem, cancellationToken);
+        }
+
+        var fromCardInfo = await GetCardInfo(new Card()
+        {
+            CardNumber = request.FromCardNumber,
+            CVV = request.FromCardCVV,
+            ExpireTo = request.FromCardExpire
+        }, cancellationToken);
+
+        var toCardInfo = await GetCardInfo(new Card()
+        {
+            CardNumber = request.CardNumberReceiver
+        }, cancellationToken);
+
+        if (fromCardInfo.CountryName != toCardInfo.CountryName)
+        {
+            return await GetCommissionBetweenCountry(fromCardSystem, cancellationToken);
+        }
+        
+        return await GetCommissionInCountry(fromCardSystem, cancellationToken);
+    }
+
+    private async Task<float> GetCommissionInCountry(string fromCardSystem, CancellationToken cancellationToken)
+    {
+        CommissionMapsterBase? commissionMapsterValue = fromCardSystem switch
+        {
+            "4411" => await GetAsync<CommissionInCountryMapster>(
+                "http://localhost:5229/system/percentage-in-country", cancellationToken),
+            _ => default
+        };
+
+        CommissionKisaBase? commissionKisaValue = fromCardSystem switch
+        {
+            "4412" => await GetAsync<CommissionInCountryKisa>(
+                "http://localhost:5046/system/commission-in-country", cancellationToken),
+            _ => default
+        };
+        
+        if (commissionMapsterValue is CommissionInCountryMapster inCountryMapster)
+        {
+            return inCountryMapster.CommissionInCountry;
+        }
+
+        return commissionKisaValue is CommissionInCountryKisa inCountryKisa
+            ? inCountryKisa.CommissionInCountry
+            : -1;
+    }
+
+    private async Task<float> GetCommissionBetweenCountry(string fromCardSystem, CancellationToken cancellationToken)
+    {
+        CommissionMapsterBase? commissionMapsterValue = fromCardSystem switch
+        {
+            "4411" => await GetAsync<CommissionBetweenCountryMapster>(
+                "http://localhost:5229/system/percentage-between-country", cancellationToken),
+            _ => default
+        };
+
+        CommissionKisaBase? commissionKisaValue = fromCardSystem switch
+        {
+            "4412" => await GetAsync<CommissionBetweenCountryKisa>(
+                "http://localhost:5046/system/commission-between-country", cancellationToken),
+            _ => default
+        };
+        
+        if (commissionMapsterValue is CommissionBetweenCountryMapster betweenCountryMapster)
+        {
+            return betweenCountryMapster.CommissionBetweenCountry;
+        }
+
+        return commissionKisaValue is CommissionBetweenCountryKisa betweenCountryKisa
+            ? betweenCountryKisa.CommissionBetweenCountry
+            : -1;
+    }
+
+    private async ValueTask<float> GetCommissionBetweenTransactionSystem(string fromCardSystem, CancellationToken cancellationToken)
+    {
+        CommissionMapsterBase? commissionMapsterValue = fromCardSystem switch
+        {
+            "4411" => await GetAsync<CommissionBetweenSystemMapster>(
+                "http://localhost:5229/system/percentage-between-card-system", cancellationToken),
+            _ => default
+        };
+
+        CommissionKisaBase? commissionKisaValue = fromCardSystem switch
+        {
+            "4412" => await GetAsync<CommissionBetweenSystemKisa>(
+                "http://localhost:5046/system/commission-between-card-systems", cancellationToken),
+            _ => default
+        };
+
+        if (commissionMapsterValue is CommissionBetweenSystemMapster commissionBetweenSystemMapster)
+        {
+            return commissionBetweenSystemMapster.CommissionBetweenCardSystems;
+        }
+
+        return commissionKisaValue is CommissionBetweenSystemKisa betweenSystemKisa
+            ? betweenSystemKisa.CommissionBetweenCardSystems
+            : -1;
+    }
+
+    async ValueTask<TResponse> GetAsync<TResponse>(string path, CancellationToken cls) where TResponse : class
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get, path);
+        var response = await _httpClient.SendAsync(request, cls);
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new BadRequestException("Request parameters is invalid");
+        }
+
+        var resultString = await response.Content.ReadAsStringAsync(cls);
+        var result = JsonSerializer.Deserialize<TResponse>(resultString);
+
+        return result;
     }
 
     async ValueTask<TResponse> SendAsync<TResponse>(string path, object data, CancellationToken cls)

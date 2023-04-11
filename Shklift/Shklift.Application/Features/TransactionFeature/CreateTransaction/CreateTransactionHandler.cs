@@ -23,6 +23,14 @@ public sealed class CreateTransactionHandler : IRequestHandler<CreateTransaction
     {
         var transactionEntity = request.Adapt<Transaction>();
         var confirmTransData = request.Adapt<ConfirmTransactionData>();
+
+        float? cardSystemTransactCommission = await _api.GetTransactionCommission(request, cancellationToken);
+
+        if (cardSystemTransactCommission is null or <= 0)
+        {
+            throw new BadRequestException("Cant get commission transaction");
+        }
+        
         var confirmationResult = await _api.ConfirmTransaction(confirmTransData, cancellationToken);
         if (!confirmationResult)
         {
