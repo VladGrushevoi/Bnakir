@@ -14,8 +14,8 @@ public static class ServiceExtension
         string? connString = configuration.GetConnectionString("ShkliftDb");
         services.AddDbContext<DataContext>(opt => opt.UseNpgsql(connString));
 
-        services.AddTransient<ITransactionRepository, TransactionRepository>();
-        services.AddTransient<ISettingRepository, ShkliftSettingRepository>();
-        services.AddTransient<BaseUnitOfWork, UnitOfWork>();
+        services.AddScoped<ITransactionRepository, TransactionRepository>();
+        services.AddScoped<ISettingRepository, ShkliftSettingRepository>();
+        services.AddScoped<BaseUnitOfWork, UnitOfWork>();
     }
 }

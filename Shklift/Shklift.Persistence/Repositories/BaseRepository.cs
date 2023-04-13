@@ -16,7 +16,7 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
 
     public async Task<TEntity?> GetAsync(Guid Id, CancellationToken cls)
     {
-        return await _context.Set<TEntity>().FirstOrDefaultAsync(e => e.Id == Id, cls);
+        return await _context.Set<TEntity>().AsNoTracking().FirstOrDefaultAsync(e => e.Id == Id, cls);
     }
 
     public async Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cls)

@@ -19,7 +19,8 @@ public sealed class CreateShkliftInfoHandler : IRequestHandler<CreateShkliftInfo
         var shkliftEntity = request.Adapt<ShkliftSetting>();
 
         var result = await _unitOfWork._settingRepository.CreateAsync(shkliftEntity, cancellationToken);
-
+        await _unitOfWork.SaveAsync(cancellationToken);
+        
         return result.Adapt<CreateShkliftInfoResponse>();
     }
 }
