@@ -12,7 +12,6 @@ public class ConfirmTransactionMapper : BaseDto<CreateTransactionRequest, Confir
         SetCustomMappings()
             .Map(dest => dest.Card.CardNumber, src => src.FromCardNumber)
             .Map(dest => dest.Card.CVV, src => src.FromCardCVV)
-            .Map(dest => dest.Card.ExpireTo, src => src.FromCardExpire)
-            .Map(dest => dest.Commission, src => src.Commission);
+            .Map(dest => dest.Card.ExpireTo, src => src.FromCardExpire);
     }
 }

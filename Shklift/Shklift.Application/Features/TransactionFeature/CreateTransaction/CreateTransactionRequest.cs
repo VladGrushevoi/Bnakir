@@ -21,9 +21,9 @@ public record CreateTransactionRequest : IRequest<CreateTransactionResponse>
     [Range(5, float.MaxValue, ErrorMessage = "Amount money must be greater then 5")]
     public float AmountMoney { get; set; }
     
-    [Required]
-    [Range(1, float.MaxValue, ErrorMessage = "Commission must be greater then 1")]
-    public float Commission { get; set; }
+    // [Required]
+    // [Range(1, float.MaxValue, ErrorMessage = "Commission must be greater then 1")]
+    // public float Commission { get; set; }
     
     [Required]
     [RegularExpression("\\d{16}", ErrorMessage = "Card CVV must be contain 3 letters")]
