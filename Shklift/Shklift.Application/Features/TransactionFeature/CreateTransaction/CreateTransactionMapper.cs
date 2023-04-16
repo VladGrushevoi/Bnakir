@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Mapster;
 using Shklift.Domain.Entities;
 using ShkliftApplication.Common;
 
@@ -26,6 +27,16 @@ public sealed class CreateTransactionResponseMapper : BaseDto<Transaction, Creat
     {
         SetCustomMappings()
             .Map(dest => dest.IcConfirmTransaction,
-                src => src.CreatedAt.HasValue);
+                src => src.CreatedAt.HasValue)
+            .Map(dest => dest.FromCardNumber,
+                src => src.FromCardNumber)
+            .Map(dest => dest.ToCardNumber,
+                src => src.ToCardNumber)
+            .Map(dest => dest.Id,
+                src => src.Id.ToString())
+            .Map(dest => dest.AmountMoney,
+                src => src.AmountMoney)
+            .Map(dest => dest.DateOfOperation,
+                src => src.CreatedAt.ToString());
     }
 }

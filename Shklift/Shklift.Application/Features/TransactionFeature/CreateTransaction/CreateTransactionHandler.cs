@@ -59,9 +59,9 @@ public sealed class CreateTransactionHandler : IRequestHandler<CreateTransaction
         // send money to card receiver
         
         var transactionEntity = request.Adapt<Transaction>();
-
+        var result = await _unitOfWork._transactionRepository.CreateAsync(transactionEntity, cancellationToken);
         await _unitOfWork.SaveAsync(cancellationToken);
-        var response = transactionEntity.Adapt<CreateTransactionResponse>();
+        var response = result.Adapt<CreateTransactionResponse>();
         return response;
     }
 }
