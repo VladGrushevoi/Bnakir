@@ -6,4 +6,20 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Dapper" Version="2.0.123" />
+      <PackageReference Include="FluentMigrator" Version="3.3.2" />
+      <PackageReference Include="FluentMigrator.Runner" Version="3.3.2" />
+      <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0-preview.3.23174.8" />
+      <PackageReference Include="Npgsql" Version="8.0.0-preview.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Migrations\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ChumakBank.Application\ChumakBank.Application.csproj" />
+    </ItemGroup>
+
 </Project>
