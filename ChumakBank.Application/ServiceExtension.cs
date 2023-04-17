@@ -1,6 +1,22 @@
-﻿namespace ChumakBank.Application;
+﻿using System.Reflection;
+using ChumakBank.Application.Common.Behavior;
+using FluentValidation;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 
-public class ServiceExtension
+namespace ChumakBank.Application;
+
+public static class ServiceExtension
 {
-    
+    public static void ConfigureApplication(this IServiceCollection services)
+    {
+        services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+                cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidatorBehavior<,>));
+            }
+        );
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        services.AddAutoMapper(Assembly.GetExecutingAssembly());
+    }
 }
