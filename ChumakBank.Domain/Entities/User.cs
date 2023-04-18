@@ -21,9 +21,7 @@ public class User : BaseEntity
     [Required]
     public string Phone { get; set; }
 
-    [ForeignKey("KisaCard")]
     public ICollection<KisaCard> KisaCards { get; set; }
     
-    [ForeignKey("MapsterCard")]
     public ICollection<MapsterCard> MapsterCards { get; set; }
 }

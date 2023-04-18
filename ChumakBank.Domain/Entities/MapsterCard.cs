@@ -11,6 +11,5 @@ public class MapsterCard : BaseEntity
     [DefaultValue(0)]
     public float Balance { get; set; }
 
-    [ForeignKey("User")]
     public User User { get; set; }
 }
