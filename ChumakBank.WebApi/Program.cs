@@ -1,4 +1,5 @@
 using ChumakBank.WebApi;
+using ChumakBank.WebApi.Extension;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,17 +7,7 @@ builder.Services.ConfigureWebApi(builder.Configuration);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
+app.MigrateDatabase();
+app.ConfigurePipeline();
 
 app.Run();
