@@ -21,16 +21,16 @@ public sealed class DataContext
         return new NpgsqlConnection(connectionString);
     }
 
-    public async Task CreateDatabase()
+    public void CreateDatabase()
     {
         string connString = _dbSetting.ToString();
-        await using var connection = new NpgsqlConnection(connString);
-        var sqlDbCountQuery = $"select count(*) from pg_database where datname = '{_dbSetting.Database}';";
-        var dbCount = await connection.ExecuteScalarAsync<int>(sqlDbCountQuery);
+        using var connection = new NpgsqlConnection(connString);
+        var sqlDbCountQuery = $"SELECT count(*) FROM pg_database WHERE datname = '{_dbSetting.Database}';";
+        var dbCount = connection.ExecuteScalar<int>(sqlDbCountQuery);
         if (dbCount == 0)
         {
             var sqlCreateDb = $"create database \"{_dbSetting.Database}\"";
-            await connection.ExecuteAsync(sqlCreateDb);
+            connection.ExecuteAsync(sqlCreateDb);
         }
     }
        
