@@ -1,11 +1,12 @@
 ﻿using System.Reflection;
 using ChumakBank.Application.Repositories;
 using ChumakBank.Persistence.Context;
+using ChumakBank.Persistence.Helpers.SqlMappers;
 using ChumakBank.Persistence.Repositories;
+using Dapper;
 using FluentMigrator.Runner;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 
 namespace ChumakBank.Persistence;
 
@@ -20,10 +21,10 @@ public static class ServiceExtension
                     .WithGlobalConnectionString(configuration.GetConnectionString("ChumakDb"))
                     .ScanIn(Assembly.GetExecutingAssembly()).For.Migrations()
             ).AddLogging(lb => lb.AddFluentMigratorConsole()).BuildServiceProvider(false);
-
+        SqlMapper.AddTypeHandler(new SqlDateOnlyTypeHandler());
         services.AddSingleton<DataContext>();
-        services.AddTransient<IUserRepository, UserRepository>();
-        services.AddTransient<IChumakRepository, ChumakInfoRepository>();
-        services.AddTransient<BaseUnitOfWork, UnitOfWork>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IChumakRepository, ChumakInfoRepository>();
+        services.AddScoped<BaseUnitOfWork, UnitOfWork>();
     }
 }

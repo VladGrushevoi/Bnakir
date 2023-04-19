@@ -1,21 +1,24 @@
 ﻿using System.Data;
 using Dapper;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Npgsql;
 
 namespace ChumakBank.Persistence.Context;
 
-public sealed class DataContext
+public sealed class  DataContext
 {
     private readonly DbSetting _dbSetting;
-
+    public readonly IDbTransaction DbTransaction;
+    public readonly IDbConnection Connection;
     public DataContext(IOptions<DbSetting> dbSetting)
     {
         _dbSetting = dbSetting.Value;
+        Connection = CreateConnection();
+        Connection.Open();
+        DbTransaction = Connection.BeginTransaction();
     }
 
-    public IDbConnection CreateConnection()
+    private IDbConnection CreateConnection()
     {
         var connectionString = _dbSetting.ToString();
         return new NpgsqlConnection(connectionString);
