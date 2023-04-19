@@ -2,13 +2,13 @@
 
 public abstract class BaseUnitOfWork
 {
-    private readonly IUserRepository _userRepository;
-    private readonly IChumakRepository _chumakRepository;
+    public readonly IUserRepository UserRepository;
+    public readonly IChumakRepository ChumakRepository;
 
     protected BaseUnitOfWork(IUserRepository userRepository, IChumakRepository chumakRepository)
     {
-        _userRepository = userRepository;
-        _chumakRepository = chumakRepository;
+        UserRepository = userRepository;
+        ChumakRepository = chumakRepository;
     }
 
     public abstract Task SaveAsync(CancellationToken cls);
