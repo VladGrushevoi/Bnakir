@@ -22,6 +22,7 @@ public static class ServiceExtension
                     .ScanIn(Assembly.GetExecutingAssembly()).For.Migrations()
             ).AddLogging(lb => lb.AddFluentMigratorConsole()).BuildServiceProvider(false);
         SqlMapper.AddTypeHandler(new SqlDateOnlyTypeHandler());
+        SqlMapper.AddTypeHandler(new SqlGuidTypeHandler());
         services.AddSingleton<DataContext>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IChumakRepository, ChumakInfoRepository>();

@@ -14,9 +14,14 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
     {
         _context = context;
     }
-    public Task<TEntity> GetAsync(Guid Id, CancellationToken cls)
+    public async Task<TEntity> GetAsync(Guid Id, CancellationToken cls)
     {
-        throw new NotImplementedException();
+        
+        var query = $"SELECT * FROM public.\"{typeof(TEntity).Name}\" WHERE \"Id\" = @Id";
+        var queryArgs = new { Id = Id };
+        var result = await _context.Connection.QueryFirstAsync<TEntity>(query, queryArgs);
+
+        return result;
     }
 
     public Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cls)
@@ -39,9 +44,14 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
         return entity;
     }
 
-    public Task<TEntity> UpdateAsync(TEntity entity, CancellationToken cls)
+    public async Task<TEntity> UpdateAsync(TEntity entity, CancellationToken cls)
     {
-        throw new NotImplementedException();
+        var updateQuery = QueryHelpers.GetUpdateQuery(entity);
+        entity.UpdatedAt = DateOnly.FromDateTime(DateTime.Now);
+
+        await _context.Connection.ExecuteAsync(updateQuery, entity, transaction: _context.DbTransaction);
+        
+        return entity;
     }
 
     public Task<TEntity> DeleteAsync(TEntity entity, CancellationToken cls)
