@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace ChumakBank.Application.Features.UserFeatures;
+namespace ChumakBank.Application.Features.UserFeatures.CreateUserFeature;
 
 public sealed class CreateUserValidator : AbstractValidator<CreateUserRequest>
 {

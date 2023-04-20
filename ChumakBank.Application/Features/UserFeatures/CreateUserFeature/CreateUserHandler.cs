@@ -3,7 +3,7 @@ using ChumakBank.Application.Repositories;
 using ChumakBank.Domain.Entities;
 using MediatR;
 
-namespace ChumakBank.Application.Features.UserFeatures;
+namespace ChumakBank.Application.Features.UserFeatures.CreateUserFeature;
 
 public sealed class CreateUserHandler : IRequestHandler<CreateUserRequest, CreateUserResponse>
 {

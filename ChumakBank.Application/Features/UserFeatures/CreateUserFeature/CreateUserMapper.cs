@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using ChumakBank.Domain.Entities;
 
-namespace ChumakBank.Application.Features.UserFeatures;
+namespace ChumakBank.Application.Features.UserFeatures.CreateUserFeature;
 
 public sealed class CreateUserMapper : Profile
 {

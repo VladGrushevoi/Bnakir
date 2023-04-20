@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace ChumakBank.Application.Features.UserFeatures;
+namespace ChumakBank.Application.Features.UserFeatures.CreateUserFeature;
 
 public sealed record CreateUserRequest(
     string Name,
