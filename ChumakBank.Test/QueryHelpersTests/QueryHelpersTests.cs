@@ -64,4 +64,32 @@ public class QueryHelpersTests
         Assert.NotNull(resultString);
         Assert.NotEqual(0, resultString.Length);
     }
+    
+    [Fact]
+    public void GetPropsWithValue__QueryHelper()
+    {
+        var entity = new User()
+        {
+            Country = default,
+            Name = null,
+            Surname = "hui",
+            Phone = "1111122222",
+            CreatedAt = new DateOnly(2023,04,19),
+            UpdatedAt = default,
+        };
+
+        var chumakInfo = new ChumakInfo()
+        {
+            Balance = 10f,
+            CommissionForOperation = default,
+            Id = default,
+            CreatedAt = default,
+            UpdatedAt = default
+        };
+        
+        var resultString = QueryHelpers.GetPropertiesWithoutDefaultValue(entity).ToArray();
+        
+        Assert.NotNull(resultString);
+        Assert.NotEmpty(resultString);
+    }
 }

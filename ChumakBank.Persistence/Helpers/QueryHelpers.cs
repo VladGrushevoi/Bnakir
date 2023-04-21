@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Reflection;
+using System.Text;
 using ChumakBank.Domain.Common;
 
 namespace ChumakBank.Persistence.Helpers;
@@ -35,5 +36,26 @@ public static class QueryHelpers
         queryBuilder.Append(propMapString).Append($" WHERE \"Id\" = @Id;");
 
         return queryBuilder.ToString();
+    }
+
+    public static IEnumerable<PropertyInfo> GetPropertiesWithoutDefaultValue<TEntity>(TEntity entity) where TEntity : class
+    {
+        var props = entity.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public)
+            .Where(x => !IsDefaultValue(x.GetValue(entity)));
+        return props;
+    }
+
+    private static bool IsDefaultValue(object value)
+    {
+        return value == null || (value.GetType().IsValueType && value.Equals(GetDefault(value.GetType())));
+    }
+    
+    static object GetDefault(Type type)
+    {
+        if (type.IsValueType)
+        {
+            return Activator.CreateInstance(type);
+        }
+        return null;
     }
 }
