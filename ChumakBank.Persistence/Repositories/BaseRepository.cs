@@ -24,9 +24,13 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
         return result;
     }
 
-    public Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cls)
+    public async Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cls)
     {
-        throw new NotImplementedException();
+        var query = $"SELECT * FROM public.\"{typeof(TEntity).Name}\";";
+
+        var result = await _context.Connection.QueryAsync<TEntity>(query);
+
+        return result;
     }
 
     public async Task<TEntity> CreateAsync(TEntity entity, CancellationToken cls)
