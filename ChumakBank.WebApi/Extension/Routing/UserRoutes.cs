@@ -1,4 +1,5 @@
 ﻿using ChumakBank.Application.Features.UserFeatures.CreateUserFeature;
+using ChumakBank.Application.Features.UserFeatures.GetAllUsersFeature;
 using ChumakBank.Application.Features.UserFeatures.UpdateUserFeature;
 using MediatR;
 
@@ -12,6 +13,8 @@ public static class UserRoutes
             => await mediator.Send(req, cls));
         group.MapPatch("/update", async (UpdateUserRequest req, IMediator mediator, CancellationToken cls) 
             => await mediator.Send(req, cls));
+        group.MapGet("/all", async (IMediator mediator, CancellationToken cls) 
+            => await mediator.Send(new GetAllUsersRequest(), cls));
         return group;
     }
 }
