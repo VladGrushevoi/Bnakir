@@ -38,6 +38,15 @@ public static class QueryHelpers
         return queryBuilder.ToString();
     }
 
+    public static string GetDeleteQuery<TEntity>(TEntity entity) where TEntity : BaseEntity
+    {
+        var queryBuilder = new StringBuilder($"DELETE FROM public.\"{typeof(TEntity).Name}\" WHERE ");
+        var propsWithData = GetPropertiesWithoutDefaultValue(entity)
+                                                .Select(x => $"\"{x.Name}\" = @{x.Name}");
+        queryBuilder.Append(string.Join(", ", propsWithData));
+        return queryBuilder.ToString();
+    }
+
     public static IEnumerable<PropertyInfo> GetPropertiesWithoutDefaultValue<TEntity>(TEntity entity) where TEntity : class
     {
         var props = entity.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public)
