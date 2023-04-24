@@ -1,9 +1,10 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ChumakBank.Application.Features.UserFeatures.DeleteUserFeature;
 
 public sealed record DeleteUserRequest(
-        Guid Id,
+        string Id,
         string Name,
         string Surname,
         string Country,

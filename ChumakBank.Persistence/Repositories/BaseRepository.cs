@@ -58,8 +58,14 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
         return entity;
     }
 
-    public Task<TEntity> DeleteAsync(TEntity entity, CancellationToken cls)
+    public async Task<TEntity> DeleteAsync(TEntity entity, CancellationToken cls)
     {
-        throw new NotImplementedException();
+        var deleteQuery = QueryHelpers.GetDeleteQuery(entity);
+
+        var result = await GetAsync(entity.Id, cls);
+
+        await _context.Connection.ExecuteAsync(deleteQuery, entity, transaction: _context.DbTransaction);
+
+        return result;
     }
 }

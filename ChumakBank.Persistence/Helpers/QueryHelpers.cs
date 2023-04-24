@@ -43,7 +43,7 @@ public static class QueryHelpers
         var queryBuilder = new StringBuilder($"DELETE FROM public.\"{typeof(TEntity).Name}\" WHERE ");
         var propsWithData = GetPropertiesWithoutDefaultValue(entity)
                                                 .Select(x => $"\"{x.Name}\" = @{x.Name}");
-        queryBuilder.Append(string.Join(", ", propsWithData));
+        queryBuilder.Append(string.Join(" AND ", propsWithData));
         return queryBuilder.ToString();
     }
 
