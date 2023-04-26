@@ -24,4 +24,11 @@
       </Reference>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Common\CardSystemsCallerApi\KisaModels\Request\" />
+      <Folder Include="Common\CardSystemsCallerApi\KisaModels\Response\" />
+      <Folder Include="Common\CardSystemsCallerApi\MapsterModels\Request\" />
+      <Folder Include="Common\CardSystemsCallerApi\MapsterModels\Response\" />
+    </ItemGroup>
+
 </Project>

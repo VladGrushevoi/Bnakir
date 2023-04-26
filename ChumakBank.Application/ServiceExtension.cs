@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using ChumakBank.Application.Common.Behavior;
+using ChumakBank.Application.Common.CardSystemsCallerApi;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,5 +19,7 @@ public static class ServiceExtension
         );
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        services.AddSingleton<SystemCardCallerApi>();
+        services.AddSingleton<CallerCardSystemApiWrapper>();
     }
 }
