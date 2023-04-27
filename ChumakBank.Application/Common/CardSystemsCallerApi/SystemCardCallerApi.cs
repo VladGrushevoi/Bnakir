@@ -12,8 +12,7 @@ public sealed class SystemCardCallerApi
         _httpClient = new HttpClient();
     }
 
-    public async Task<TResponse> SendPostMethod<TRequest, TResponse>(TRequest req, string path, CancellationToken cls) 
-        where TRequest : class
+    public async Task<TResponse> SendPostMethod<TResponse>(object req, string path, CancellationToken cls) 
         where TResponse : class
     {
         var dataJson = JsonSerializer.Serialize(req);

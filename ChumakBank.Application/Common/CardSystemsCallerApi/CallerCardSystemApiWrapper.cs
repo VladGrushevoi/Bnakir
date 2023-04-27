@@ -1,4 +1,6 @@
-﻿namespace ChumakBank.Application.Common.CardSystemsCallerApi;
+﻿using ChumakBank.Application.Common.Exception;
+
+namespace ChumakBank.Application.Common.CardSystemsCallerApi;
 
 public class CallerCardSystemApiWrapper
 {
@@ -9,9 +11,19 @@ public class CallerCardSystemApiWrapper
         _systemCardCallerApi = systemCardCallerApi;
     }
 
-    public async Task<CreateCardResponse> CreateCardRequest()
+    public async Task<CreateCardResponse> CreateCardRequest<TRequest>(TRequest data, CancellationToken cls)
+    where TRequest : class
     {
-        
-        return new CreateCardResponse();
+        var chooseCardSys = Random.Shared.Next(1, 100);
+        var result = chooseCardSys switch
+        {
+            <= 50 => await _systemCardCallerApi.SendPostMethod<CreateCardResponse>(data,
+                "http://localhost:5229/card/add",
+                cls),
+            > 50 => await _systemCardCallerApi.SendPostMethod<CreateCardResponse>(data,
+                "http://localhost:5046/card/create",
+                cls)
+        };
+        return result;
     }
 }
