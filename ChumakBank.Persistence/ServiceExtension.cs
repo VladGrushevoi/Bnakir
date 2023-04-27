@@ -26,6 +26,8 @@ public static class ServiceExtension
         services.AddScoped<DataContext>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IChumakRepository, ChumakInfoRepository>();
+        services.AddScoped<IKisaCardRepository, KisaCardRepository>();
+        services.AddScoped<IMapsterCardRepository, MapsterCardRepository>();
         services.AddScoped<BaseUnitOfWork, UnitOfWork>();
     }
 }

@@ -28,7 +28,7 @@ public class InitMigration : Migration
             .WithColumn(nameof(KisaCard.Id)).AsGuid().NotNullable().PrimaryKey()
             .WithColumn(nameof(KisaCard.CardIdFromSystem)).AsGuid().NotNullable()
             .WithColumn(nameof(KisaCard.Balance)).AsFloat().NotNullable().WithDefaultValue(0)
-            .WithColumn(nameof(User) + "Id").AsGuid().NotNullable().ForeignKey(nameof(User), nameof(User.Id))
+            .WithColumn(nameof(KisaCard.UserId)).AsGuid().NotNullable().ForeignKey(nameof(User), nameof(User.Id))
             .WithColumn(nameof(KisaCard.CreatedAt)).AsDate()
             .WithColumn(nameof(KisaCard.UpdatedAt)).AsDate();
         
@@ -36,7 +36,7 @@ public class InitMigration : Migration
             .WithColumn(nameof(MapsterCard.Id)).AsGuid().NotNullable().PrimaryKey()
             .WithColumn(nameof(MapsterCard.CardIdFromSystem)).AsGuid().NotNullable()
             .WithColumn(nameof(MapsterCard.Balance)).AsFloat().NotNullable().WithDefaultValue(0)
-            .WithColumn(nameof(User) + "Id").AsGuid().NotNullable().ForeignKey(nameof(User), nameof(User.Id))
+            .WithColumn(nameof(MapsterCard.UserId)).AsGuid().NotNullable().ForeignKey(nameof(User), nameof(User.Id))
             .WithColumn(nameof(MapsterCard.CreatedAt)).AsDate()
             .WithColumn(nameof(MapsterCard.UpdatedAt)).AsDate();
 
