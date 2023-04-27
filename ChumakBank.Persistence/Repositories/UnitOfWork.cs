@@ -5,11 +5,13 @@ namespace ChumakBank.Persistence.Repositories;
 
 public sealed class UnitOfWork : BaseUnitOfWork
 {
-    public readonly IUserRepository _userRepository;
-    public readonly IChumakRepository _chumakRepository;
     private readonly DataContext _context;
 
-    public UnitOfWork(IUserRepository userRepository, IChumakRepository chumakRepository, DataContext context) : base(userRepository, chumakRepository)
+    public UnitOfWork(IUserRepository userRepository, 
+        IChumakRepository chumakRepository,
+        IKisaCardRepository kisaCardRepository,
+        IMapsterCardRepository mapsterCardRepository,
+        DataContext context) : base(userRepository, chumakRepository, mapsterCardRepository, kisaCardRepository)
     {
         _context = context;
     }
