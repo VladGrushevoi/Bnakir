@@ -11,5 +11,5 @@ public class MapsterCard : BaseEntity
     [DefaultValue(0)]
     public float Balance { get; set; }
 
-    public User User { get; set; }
+    public Guid UserId { get; set; }
 }
