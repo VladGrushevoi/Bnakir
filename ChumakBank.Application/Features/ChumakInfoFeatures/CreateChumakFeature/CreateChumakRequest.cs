@@ -1,6 +1,8 @@
-﻿namespace ChumakBank.Application.Features.ChumakInfoFeatures.CreateChumakFeature;
+﻿using MediatR;
 
-public class CreateChumakRequest
-{
-    
-}
+namespace ChumakBank.Application.Features.ChumakInfoFeatures.CreateChumakFeature;
+
+public sealed record CreateChumakRequest(
+        float Balance,
+        float CommissionOfOperation
+    ) : IRequest<CreateChumakResponse>;
