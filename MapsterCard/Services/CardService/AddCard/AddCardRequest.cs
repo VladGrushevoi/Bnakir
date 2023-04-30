@@ -3,7 +3,7 @@ using MediatR;
 
 namespace MapsterCard.Services.CardService.AddCard;
 
-public sealed record AddCardRequest(string CountryName) : IRequest<AddCardResponse>;
+public sealed record AddCardRequest(string CountryName, string BankIdentifier) : IRequest<AddCardResponse>;
 
 public sealed record AddCardResponse(
     Guid id,
@@ -20,5 +20,6 @@ public sealed class AddCardModelValidator : AbstractValidator<AddCardRequest>
     {
         RuleFor(f => f.CountryName).NotEmpty().NotNull().MinimumLength(3)
             .WithMessage("Country Name have minimum length 3");
+        RuleFor(src => src.BankIdentifier).NotNull().NotEmpty().Length(4);
     }
 }

@@ -22,7 +22,7 @@ public sealed class CreateCardHandler : IRequestHandler<CreateCardRequest, Creat
     {
         Random rnd = new();
         var cardEntity = _mapper.Map<KisaCard>(request);
-        cardEntity.CardNumber = "4412" + rnd.Next(1000, 9999) + rnd.Next(1000, 9999) + rnd.Next(1000, 9999);
+        cardEntity.CardNumber = "4412" + request.BankIdentifier + rnd.Next(1000, 9999) + rnd.Next(1000, 9999);
         cardEntity.CVV = rnd.Next(100, 999).ToString();
         cardEntity.CreatedAt = DateOnly.FromDateTime(DateTime.Now);
         cardEntity.ExpireTo = cardEntity.CreatedAt.Value.AddYears(3);
