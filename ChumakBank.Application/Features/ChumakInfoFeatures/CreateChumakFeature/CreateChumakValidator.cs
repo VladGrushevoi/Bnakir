@@ -10,5 +10,7 @@ public sealed class CreateChumakValidator : AbstractValidator<CreateChumakReques
             .NotNull().NotEmpty().GreaterThan(0.01f);
         RuleFor(src => src.CommissionOfOperation)
             .NotEmpty().NotNull().GreaterThan(0.01f);
+        RuleFor(src => src.BankIdentifier)
+            .NotEmpty().NotNull().Length(4);
     }
 }

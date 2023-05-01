@@ -21,6 +21,8 @@ public sealed class CreateChumakMapper : Profile
                 => opt.MapFrom(src => src.Balance.ToString(CultureInfo.InvariantCulture)))
             .ForMember(dest => dest.Commission, opt 
                 => opt.MapFrom(src => src.CommissionForOperation.ToString(CultureInfo.InvariantCulture)))
+            .ForMember(dest => dest.BankIdentifier, opt 
+            => opt.MapFrom(src => src.BankIdentifier))
             .ForMember(dest => dest.CreatedAt, opt 
                 => opt.MapFrom(src => src.CreatedAt.ToString()))
             .ForMember(dest => dest.UpdatedAt, opt 

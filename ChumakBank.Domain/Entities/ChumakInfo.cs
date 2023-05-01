@@ -6,4 +6,5 @@ public sealed class ChumakInfo : BaseEntity
 {
     public float Balance { get; set; }
     public float CommissionForOperation { get; set; }
+    public string BankIdentifier { get; set; }
 }

@@ -29,8 +29,13 @@ public sealed class CreateCardForUserHandler : IRequestHandler<CreateCardForUser
         var userInfo = await _unitOfWork.UserRepository.GetAsync(userData.Id, cancellationToken);
 
         var userCountry = userInfo.Country;
+        var chumakInfo = await _unitOfWork.ChumakRepository.GetAllAsync(cancellationToken);
+        
 
-        var createdCard = await _apiWrapper.CreateCardRequest(new { CountryName = userCountry }, cancellationToken);
+        var createdCard = await _apiWrapper.CreateCardRequest(new
+        {
+            CountryName = userCountry, chumakInfo.Last().BankIdentifier
+        }, cancellationToken);
         var cardSysCode = string.Join("", createdCard.CardNumber.Take(4));
         object cardEntity = cardSysCode switch
         {
