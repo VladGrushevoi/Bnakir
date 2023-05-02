@@ -14,6 +14,9 @@ public static class ConfigurePipelineApi
         app.MapGroup("/chumak")
             .ChumakRoutesBuild()
             .WithTags("ChumakEndpoints");
+        app.MapGroup("/card")
+            .CardRoutesBuilder()
+            .WithTags("CardEndpoints");
         app.ExceptionHandler();
     }
 }
