@@ -19,6 +19,7 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
         
         var query = $"SELECT * FROM public.\"{typeof(TEntity).Name}\" WHERE \"Id\" = @Id";
         var queryArgs = new { Id = Id };
+        
         var result = await _context.Connection.QueryFirstAsync<TEntity>(query, queryArgs);
 
         return result;

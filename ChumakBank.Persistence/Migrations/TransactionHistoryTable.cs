@@ -11,11 +11,13 @@ public class TransactionHistoryTable : Migration
         Create.Table(nameof(TransactionHistory))
             .WithColumn(nameof(TransactionHistory.Id)).AsGuid().NotNullable().PrimaryKey()
             .WithColumn(nameof(TransactionHistory.FromCardId)).AsGuid().NotNullable()
-            ;
+            .WithColumn(nameof(TransactionHistory.AmountMoney)).AsFloat().NotNullable()
+            .WithColumn(nameof(TransactionHistory.CreatedAt)).AsDate().Nullable()
+            .WithColumn(nameof(TransactionHistory.UpdatedAt)).AsDate().Nullable();
     }
 
     public override void Down()
     {
-        throw new NotImplementedException();
+        Delete.Table(nameof(TransactionHistory));
     }
 }

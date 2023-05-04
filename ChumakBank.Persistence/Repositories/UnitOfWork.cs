@@ -11,7 +11,12 @@ public sealed class UnitOfWork : BaseUnitOfWork
         IChumakRepository chumakRepository,
         IKisaCardRepository kisaCardRepository,
         IMapsterCardRepository mapsterCardRepository,
-        DataContext context) : base(userRepository, chumakRepository, mapsterCardRepository, kisaCardRepository)
+        ITransactionHistoryRepository transactionHistoryRepository,
+        DataContext context) : base(userRepository, 
+        chumakRepository, 
+        mapsterCardRepository, 
+        kisaCardRepository,
+        transactionHistoryRepository)
     {
         _context = context;
     }

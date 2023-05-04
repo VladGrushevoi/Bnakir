@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using ChumakBank.Application.Repositories;
+using ChumakBank.Domain.Entities;
 using ChumakBank.Persistence.Context;
 using ChumakBank.Persistence.Helpers.SqlMappers;
 using ChumakBank.Persistence.Repositories;
@@ -28,6 +29,7 @@ public static class ServiceExtension
         services.AddScoped<IChumakRepository, ChumakInfoRepository>();
         services.AddScoped<IKisaCardRepository, KisaCardRepository>();
         services.AddScoped<IMapsterCardRepository, MapsterCardRepository>();
+        services.AddScoped<ITransactionHistoryRepository, TransactionHistoryRepository>();
         services.AddScoped<BaseUnitOfWork, UnitOfWork>();
     }
 }
