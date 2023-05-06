@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using AutoMapper;
+﻿using AutoMapper;
 using ChumakBank.Application.Common.Exception;
 using ChumakBank.Application.Repositories;
 using ChumakBank.Domain.Entities;
@@ -22,7 +21,8 @@ public sealed class GetMoneyFromCardHandler : IRequestHandler<GetMoneyFromCardRe
     {
         var kisaCardRequest = _mapper.Map<KisaCard>(request);
         var mapsterCardRequest = _mapper.Map<MapsterCard>(request);
-        var percentOfOperation = (await _unitOfWork.ChumakRepository.GetAllAsync(cancellationToken)).Last().CommissionForOperation;
+        var chumakInfo = (await _unitOfWork.ChumakRepository.GetAllAsync(cancellationToken)).Last();
+        var percentOfOperation = chumakInfo.CommissionForOperation;
 
         var kisaCardEntity = 
             (await _unitOfWork.KisaCardRepository.GetAllAsync(cancellationToken))
@@ -40,6 +40,7 @@ public sealed class GetMoneyFromCardHandler : IRequestHandler<GetMoneyFromCardRe
                 kisaCardEntity.Balance -= request.AmountMoney;
                 if (kisaCardEntity.Balance >= commission)
                 {
+                    chumakInfo.Balance += commission;
                     kisaCardEntity.Balance -= commission;
                     var transaction = new TransactionHistory
                     {
@@ -48,7 +49,8 @@ public sealed class GetMoneyFromCardHandler : IRequestHandler<GetMoneyFromCardRe
                         AmountMoney = request.AmountMoney,
                         CreatedAt = DateOnly.FromDateTime(DateTime.Now)
                     };
-
+                    var chumakInfosUpdate =
+                        await _unitOfWork.ChumakRepository.UpdateAsync(chumakInfo, cancellationToken);
                     var transactHist =
                         await _unitOfWork.TransactionHistoryRepository.CreateAsync(transaction, cancellationToken);
                     var updateKisaCard =
@@ -68,6 +70,7 @@ public sealed class GetMoneyFromCardHandler : IRequestHandler<GetMoneyFromCardRe
                 if (mapsterCardEntity.Balance >= commission)
                 {
                     mapsterCardEntity.Balance -= commission;
+                    chumakInfo.Balance += commission;
                     var transaction = new TransactionHistory
                     {
                         Id = Guid.NewGuid(),
@@ -76,6 +79,8 @@ public sealed class GetMoneyFromCardHandler : IRequestHandler<GetMoneyFromCardRe
                         CreatedAt = DateOnly.FromDateTime(DateTime.Now)
                     };
 
+                    var updateChumakInfo =
+                        await _unitOfWork.ChumakRepository.UpdateAsync(chumakInfo, cancellationToken);
                     var transactHist =
                         await _unitOfWork.TransactionHistoryRepository.CreateAsync(transaction, cancellationToken);
                     var updateKisaCard =
