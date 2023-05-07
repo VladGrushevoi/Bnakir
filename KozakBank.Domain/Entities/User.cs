@@ -10,7 +10,7 @@ public class User : BaseEntity
     [Required]
     public string Surname { get; set; }
     [Required]
-    [RegularExpression("\\d{20}")]
+    [RegularExpression("\\d{5,20}")]
     public string Phone { get; set; }
     [Required]
     public string Country { get; set; }
