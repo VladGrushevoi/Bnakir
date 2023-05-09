@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Features\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\KozakBank.Domain\KozakBank.Domain.csproj" />
     </ItemGroup>
 
