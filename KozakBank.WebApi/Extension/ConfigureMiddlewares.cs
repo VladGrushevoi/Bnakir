@@ -20,6 +20,6 @@ public static class ConfigureMiddlewares
         app.UseGlobalExtensionHandler();
         app.MapGroup("/user")
             .UserEndpoints()
-            .WithName("User endpoints");
+            .WithTags("User endpoints");
     }
 }

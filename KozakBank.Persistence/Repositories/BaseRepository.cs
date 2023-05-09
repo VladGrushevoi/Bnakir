@@ -1,5 +1,7 @@
-﻿using KozakBank.Application.Repositories;
+﻿using System.Reflection;
+using KozakBank.Application.Repositories;
 using KozakBank.Domain.Common;
+using KozakBank.Persistence.Common.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace KozakBank.Persistence.Repositories;
@@ -25,15 +27,14 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
 
     public async Task<IEnumerable<TEntity>> GetByProperties(TEntity entity, CancellationToken cls)
     {
-        //TODO NEED TO TESTING !!!!!!!!!!!!!!
-        var propsWithValue = entity
+        var props = entity
             .GetType()
-            .GetProperties()
-            .Where(x => x.GetValue(entity) != null || 
-                        (x.GetType().IsValueType && x.GetValue(entity).Equals(Activator.CreateInstance(x.GetType()))));
-        return await _context.Set<TEntity>()
-            .Where(x => propsWithValue.All(prop => prop.GetValue(x).Equals(prop.GetValue(entity))))
-            .ToListAsync(cls);
+            .GetProperties(BindingFlags.Instance | BindingFlags.Public);
+        var propsWithValue = props
+            .Where(x => !CheckOnNullOrDefault.IsDefaultValue(x.GetValue(entity))).ToList();
+        return _context.Set<TEntity>().AsEnumerable()
+                .Where(x => propsWithValue.All(prop => prop.GetValue(x)!.Equals(prop.GetValue(entity))))
+            ;
     }
 
     public async Task<TEntity> CreateAsync(TEntity entity, CancellationToken cls)
