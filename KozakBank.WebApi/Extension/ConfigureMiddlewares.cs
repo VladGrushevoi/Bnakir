@@ -21,5 +21,8 @@ public static class ConfigureMiddlewares
         app.MapGroup("/user")
             .UserEndpoints()
             .WithTags("User endpoints");
+        app.MapGroup("/kozak-info")
+            .KozakInfoEndpoints()
+            .WithTags("Kozak info endpoints");
     }
 }
