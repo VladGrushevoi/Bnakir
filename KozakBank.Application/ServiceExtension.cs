@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using FluentValidation;
 using KozakBank.Application.Common.Behavior;
+using KozakBank.Application.Common.UseCardSystem;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,5 +19,7 @@ public static class ServiceExtension
         );
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        services.AddSingleton<UseCardSystemApi>();
+        services.AddScoped<UseCardSystemApiWrapper>();
     }
 }
