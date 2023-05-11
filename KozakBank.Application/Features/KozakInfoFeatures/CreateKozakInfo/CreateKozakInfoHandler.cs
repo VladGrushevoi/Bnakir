@@ -22,6 +22,7 @@ public sealed class CreateKozakInfoHandler : IRequestHandler<CreateKozakInfoRequ
 
         var result = await _unitOfWork.KozakInfoRepository.CreateAsync(kozakInfoEntity, cancellationToken);
 
+        await _unitOfWork.SaveAsync(cancellationToken);
         return _mapper.Map<CreateKozakInfoResponse>(result);
     }
 }
