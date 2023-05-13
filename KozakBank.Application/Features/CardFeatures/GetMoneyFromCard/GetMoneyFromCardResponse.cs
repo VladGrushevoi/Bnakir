@@ -1,6 +1,6 @@
 ﻿namespace KozakBank.Application.Features.CardFeatures.GetMoneyFromCard;
 
-public class GetMoneyFromCardResponse
+public sealed record GetMoneyFromCardResponse
 {
-    
+    public float Money { get; set; }
 }
