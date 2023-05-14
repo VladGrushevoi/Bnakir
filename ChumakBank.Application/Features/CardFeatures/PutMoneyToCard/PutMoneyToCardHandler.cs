@@ -20,8 +20,8 @@ public sealed class PutMoneyToCardHandler : IRequestHandler<PutMoneyToCardReques
     {
         var allKisaCards = await _unitOfWork.KisaCardRepository.GetAllAsync(cancellationToken);
         var allMapsterCard = await _unitOfWork.MapsterCardRepository.GetAllAsync(cancellationToken);
-        KisaCard kisaCard = allKisaCards.SingleOrDefault(src => src.CardIdFromSystem == request.CardIdFromSysCard);
-        MapsterCard mapsterCard = allMapsterCard.SingleOrDefault(src => src.CardIdFromSystem == request.CardIdFromSysCard);
+        KisaCard kisaCard = allKisaCards.SingleOrDefault(src => src.CardIdFromSystem == request.SysCardId);
+        MapsterCard mapsterCard = allMapsterCard.SingleOrDefault(src => src.CardIdFromSystem == request.SysCardId);
         PutMoneyToCardResponse result = null;
         if (kisaCard != default)
         {

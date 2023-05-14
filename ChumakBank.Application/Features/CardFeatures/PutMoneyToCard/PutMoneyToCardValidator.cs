@@ -6,7 +6,7 @@ public sealed class PutMoneyToCardValidator : AbstractValidator<PutMoneyToCardRe
 {
     public PutMoneyToCardValidator()
     {
-        RuleFor(src => src.CardIdFromSysCard)
+        RuleFor(src => src.SysCardId)
             .NotEmpty().NotNull();
         RuleFor(src => src.Amount)
             .NotEqual(0)
