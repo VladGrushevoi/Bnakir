@@ -10,4 +10,6 @@ public interface IBaseApi
     Task<bool> ConfirmTransaction(ConfirmTransactionData reqData, CancellationToken cls);
     Task<CardInfo?> GetCardInfo(Card reqData, CancellationToken cls);
     Task<float> GetTransactionCommission(CreateTransactionRequest request, CancellationToken cancellationToken);
+    Task<GetMoneyFromBankResponse> GetMoneyFromBank(GetMoneyFromBankRequest reqData, CancellationToken cls);
+    Task<SendMoneyToBankResponse> SendMoneyToBank(SendMoneyToBankRequest reqData, CancellationToken cls);
 }

@@ -197,6 +197,44 @@ public class CardSystemApiCaller : IBaseApi
             : -1;
     }
 
+    public async Task<GetMoneyFromBankResponse> GetMoneyFromBank(GetMoneyFromBankRequest reqData, CancellationToken cls)
+    {
+        var bankIdentifier = string.Join("", reqData.CardNumber.Skip(4).Take(4));
+        var result = bankIdentifier switch
+        {
+            "2023" => await SendAsync<GetMoneyFromBankResponse>("http://localhost:5291/card/get-money",new
+            {
+                reqData.IdFromCardSystem, reqData.AmountMoney
+            }, cls),
+            "2320" => await SendAsync<GetMoneyFromBankResponse>("http://localhost:5200/card/get-money", new
+            {
+                reqData.IdFromCardSystem, reqData.AmountMoney
+            }, cls),
+            _ => throw new BadRequestException("Bank identifier is invalid")
+        };
+
+        return result;
+    }
+
+    public async Task<SendMoneyToBankResponse> SendMoneyToBank(SendMoneyToBankRequest reqData, CancellationToken cls)
+    {
+        var bankIdentifier = string.Join("", reqData.CardNumber.Skip(4).Take(4));
+        var result = bankIdentifier switch
+        {
+            "2023" => await SendAsync<SendMoneyToBankResponse>("http://localhost:5291/card/put-money",new
+            {
+                reqData.SysCardId, reqData.Amount
+            }, cls),
+            "2320" => await SendAsync<SendMoneyToBankResponse>("http://localhost:5200/card/put-money", new
+            {
+                reqData.SysCardId, reqData.Amount
+            }, cls),
+            _ => throw new BadRequestException("Bank identifier is invalid")
+        };
+
+        return result;
+    }
+
     async ValueTask<TResponse> GetAsync<TResponse>(string path, CancellationToken cls) where TResponse : class
     {
         var request = new HttpRequestMessage(HttpMethod.Get, path);
