@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Net.NetworkInformation;
+using AutoMapper;
 using Kisa.Domain.Entities;
 
 namespace Kisa.Application.Features.CardFeatures.GetCardByProperties;
@@ -16,6 +17,8 @@ public sealed class GetCardByPropertiesMapper : Profile
             .ForMember(dest => dest.ExpireTo, opt 
                 => opt.MapFrom(src => src.ExpireTo!.Value.ToString()))
             .ForMember(dest => dest.CreatedAt, opt 
-                => opt.MapFrom(src => src.CreatedAt!.Value.ToString()));
+                => opt.MapFrom(src => src.CreatedAt!.Value.ToString()))
+            .ForMember(dest => dest.Id, opt 
+            => opt.MapFrom(src => src.Id.ToString()));
     }
 }
