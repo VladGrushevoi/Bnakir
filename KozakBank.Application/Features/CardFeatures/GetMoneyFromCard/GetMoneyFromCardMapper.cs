@@ -9,10 +9,10 @@ public sealed class GetMoneyFromCardMapper : Profile
     {
         CreateMap<GetMoneyFromCardRequest, KisaCard>()
             .ForMember(dest => dest.Id, opt
-                => opt.MapFrom(src => src.SysCardId));
+                => opt.MapFrom(src => src.IdFromCardSystem));
         
         CreateMap<GetMoneyFromCardRequest, MapsterCard>()
             .ForMember(dest => dest.Id, opt
-                => opt.MapFrom(src => src.SysCardId));
+                => opt.MapFrom(src => src.IdFromCardSystem));
     }
 }

@@ -6,7 +6,7 @@ public sealed class GetMoneyFromCardValidator : AbstractValidator<GetMoneyFromCa
 {
     public GetMoneyFromCardValidator()
     {
-        RuleFor(src => src.SysCardId)
+        RuleFor(src => src.IdFromCardSystem)
             .NotEmpty().NotNull();
         RuleFor(src => src.AmountMoney)
             .NotNull().NotEmpty().GreaterThan(0.01f);

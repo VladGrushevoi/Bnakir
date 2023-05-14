@@ -3,6 +3,6 @@
 namespace KozakBank.Application.Features.CardFeatures.GetMoneyFromCard;
 
 public sealed record GetMoneyFromCardRequest(
-        Guid SysCardId,
+        Guid IdFromCardSystem,
         float AmountMoney
     ) : IRequest<GetMoneyFromCardResponse>;
