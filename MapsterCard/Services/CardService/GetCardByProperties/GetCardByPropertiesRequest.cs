@@ -14,6 +14,7 @@ public sealed record GetCardByPropertiesRequest(
 
 public sealed record GetCardByPropertiesResponse
 {
+    public string Id { get; set; }
     public string CardNumber { get; set; }
     public string CVV { get; set; }
     public string ExpireTo { get; set; }

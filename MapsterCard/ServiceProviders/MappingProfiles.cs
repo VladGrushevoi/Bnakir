@@ -42,7 +42,9 @@ public sealed class CardMappingProfile : Profile
             .ForMember(dest => dest.ExpireTo, opt 
             => opt.MapFrom(src => src.ExpireTo!.Value.ToString()))
             .ForMember(dest => dest.CreatedAt, opt 
-                => opt.MapFrom(src => src.CreatedAt!.Value.ToString()));
+                => opt.MapFrom(src => src.CreatedAt!.Value.ToString()))
+            .ForMember(dest => dest.Id, opt 
+            => opt.MapFrom(src => src.Id.ToString()));
     }
 }
 
