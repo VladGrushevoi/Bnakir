@@ -1,0 +1,52 @@
+@keyframes card-left {
+    0% {
+        left: -45%
+    }
+    100% {
+        left: 0%
+    }
+}
+
+@keyframes card-right {
+    0% {
+        right: -45%;
+    }
+    100% {
+        right: 0%;
+    }
+}
+
+@keyframes card-input {
+    0% {
+        opacity: 10%;
+        top: -100%
+    }
+    33% {
+        opacity: 50%;
+    }
+    66% {
+        opacity: 100%;
+    }
+    100% {
+        top: 0%;
+        opacity: 100%;
+    }
+}
+
+.card-animate-left {
+    animation-name : card-left;
+    animation-duration: 3s;
+    position: relative;
+}
+
+.card-animate-right {
+    animation-name : card-right;
+    animation-duration: 3s;
+    position: relative;
+}
+
+.cardInput-animate {
+    animation-name : card-input;
+    animation-duration: 3s;
+    position: relative;
+}
