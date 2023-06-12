@@ -13,8 +13,8 @@ export const MainPage = ({ }: MainPageProps) => {
                     className="h-full"
                 >
                     <div className="flex justify-center pt-24 flex-wrap">
-                        <Card isSender={true}/>
-                        <Card isSender={false}/>
+                        <Card isSender={true} title="Відправник"/>
+                        <Card isSender={false} title="Отримувач"/>
                     </div>
                 </div>
             </section>
