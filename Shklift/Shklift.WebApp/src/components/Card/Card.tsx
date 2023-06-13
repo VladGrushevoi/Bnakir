@@ -18,7 +18,8 @@ export const Card = ({ isSender, title }: CardProps) => {
                             bg-slate-200 
                             m-auto border 
                             rounded-3xl 
-                            shadow-lg 
+                            shadow-lg
+                            duration-200 
                             hover:shadow-pink-300 
                             hover:-translate-y-4  
                             ${isSender ? "card-animate-left" : "card-animate-right"}`}
