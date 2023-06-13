@@ -1,3 +1,4 @@
+import { SubmitButton } from "../../components/Button/SubmitButton"
 import { Card } from "../../components/Card/Card"
 
 interface MainPageProps {
@@ -16,6 +17,7 @@ export const MainPage = ({ }: MainPageProps) => {
                         <Card isSender={true} title="Відправник"/>
                         <Card isSender={false} title="Отримувач"/>
                     </div>
+                    <SubmitButton />
                 </div>
             </section>
         </>

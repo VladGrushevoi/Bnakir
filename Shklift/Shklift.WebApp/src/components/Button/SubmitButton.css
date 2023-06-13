@@ -1,0 +1,15 @@
+@keyframes submitButton {
+    0% {
+        translate: 0% 200%
+    }
+
+    1000% {
+        translate: 0%
+    }
+}
+
+.submitButton-animate {
+    animation-name : submitButton;
+    animation-duration: 2s;
+    position: relative;
+}
