@@ -9,7 +9,7 @@ export const SubmitButton = ({ }: SubmitButtonProps) => {
     return (
         <>
             <div className="block text-center text-3xl mt-4">
-                <button className="border 
+                <button type="submit" className="border 
                         py-4 px-6 
                         rounded-2xl font-bold tracking-widest
                         box-border shadow-2xl shadow-purple-600

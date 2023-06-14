@@ -1,11 +1,18 @@
-interface CvvInputProps {
+import { InputHandler } from "../Card/Card"
 
+interface CvvInputProps {
+    inputHook : InputHandler
 }
 
-export const CvvInput = ({} : CvvInputProps) => {
+export const CvvInput = ({inputHook} : CvvInputProps) => {
     return (
         <>
-           <input type="password" className=" w-12 px-2 border rounded-md text-2xl outline-none"/> 
+           <input 
+                type="password"
+                {...inputHook} 
+                className=" w-12 px-2 border rounded-md text-2xl outline-none"
+            
+            /> 
         </>
     )
 }

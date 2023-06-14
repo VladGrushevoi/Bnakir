@@ -1,14 +1,16 @@
-interface DateInputProps {
+import { InputHandler } from "../Card/Card"
 
+interface DateInputProps {
+    inputHook : InputHandler[]
 }
 
-export const DateInput = ({} : DateInputProps) => {
+export const DateInput = ({inputHook} : DateInputProps) => {
 
     return (
         <>
-            <input type="text"  className=" w-8 border rounded-md text-2xl outline-none"/>
+            <input type="text" {...inputHook[0]}  className=" w-8 border rounded-md text-2xl outline-none"/>
             <span className="text-2xl">/</span>
-            <input type="text" className="w-8 border rounded-md text-2xl outline-none"/>
+            <input type="text" {...inputHook[1]} className="w-8 border rounded-md text-2xl outline-none"/>
         </>
     )
 }

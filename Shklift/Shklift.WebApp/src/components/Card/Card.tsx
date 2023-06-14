@@ -6,10 +6,19 @@ import "./Card.css"
 
 interface CardProps {
     isSender: boolean,
-    title: string
+    title: string,
+    cardNumberInputHook: InputHandler[],
+    dateInputHook?: InputHandler[],
+    cvvInputHook? : InputHandler,
+    moneyInputHook? : InputHandler
 }
 
-export const Card = ({ isSender, title }: CardProps) => {
+export interface InputHandler {
+    value : string,
+    onChange : (e : React.ChangeEvent<HTMLInputElement>) => void
+}
+
+export const Card = ({ isSender, title,cardNumberInputHook,cvvInputHook,dateInputHook,moneyInputHook }: CardProps) => {
     return (
         <>
             <div
@@ -31,10 +40,9 @@ export const Card = ({ isSender, title }: CardProps) => {
                     <div className="mt-8">
                         <p className="block text-center text-2xl">Номер банківської карти</p>
                         <div className="flex w-full h-10 justify-center">
-                            <CardInput />
-                            <CardInput />
-                            <CardInput />
-                            <CardInput />
+                            {
+                                cardNumberInputHook.map(item => <CardInput inputHook={item} key={Math.random()} />)
+                            }
                         </div>
                     </div>
                     {
@@ -43,19 +51,19 @@ export const Card = ({ isSender, title }: CardProps) => {
                                 <span
                                 >
                                     <span className="text-2xl mr-2">Дата</span>
-                                    <DateInput />
+                                    <DateInput inputHook={dateInputHook!}/>
                                 </span>
                                 <span className="mx-12"></span>
                                 <span
                                 >
                                     <span className="text-2xl mr-2">CVV</span>
-                                    <CvvInput />
+                                    <CvvInput  inputHook={cvvInputHook!}/>
                                 </span>
                             </div>
                             <span className="inline-block w-full text-center text-2xl">
                                     Сума
                                     <span className="mx-2"></span>
-                                    <MoneyInput />
+                                    <MoneyInput inputHook={moneyInputHook!} />
                                     <span className="mx-2"></span>
                                     грошей
                                 </span>
