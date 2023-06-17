@@ -1,7 +1,10 @@
 import React from 'react'
 import './App.css'
 import { Header } from './components/Header/Header'
-import { MainPage } from './pages/MainPage/MainPage'
+import { RouterProvider } from 'react-router-dom'
+import { Router } from './router/Router'
+
+
 
 function App(): React.JSX.Element {
 
@@ -9,7 +12,7 @@ function App(): React.JSX.Element {
         <>
             <div className='container h-screen bg-gray-100'>
                 <Header />
-                <MainPage />
+                <RouterProvider router={Router} />
             </div>
         </>
     )
