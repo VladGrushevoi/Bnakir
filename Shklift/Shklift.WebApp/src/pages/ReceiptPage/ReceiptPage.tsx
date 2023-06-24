@@ -37,14 +37,16 @@ export const ReceiptPage = ({} : ReceiptPageProps) => {
                     <span className="tracking-widest font-semibold">КВИТАНЦІЯ</span>
                 </div>
                 <div className="w-full h-full flex py-6 px-6 text-center">
-                    <ReceiptItem 
+                    <ReceiptItem
+                        title="Відправник" 
                         isSender={true} 
                         cardNumber={fakeData.fromCard} 
                         amountMoney={fakeData.amountMoney}
                         commission={fakeData.commission}
                         />
                     <span className="mx-2"></span>
-                    <ReceiptItem 
+                    <ReceiptItem
+                        title="Отримувач" 
                         isSender={false}
                         cardNumber={fakeData.toCard}
                     />

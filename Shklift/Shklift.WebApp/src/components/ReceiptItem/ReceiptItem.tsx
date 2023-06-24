@@ -1,16 +1,17 @@
 interface ReceiptItemProps {
     isSender: boolean,
+    title: string,
     cardNumber: string,
     amountMoney?: number | null | undefined,
     commission?: number | null | undefined
 }
 
-export const ReceiptItem = ({ isSender, cardNumber, amountMoney, commission }: ReceiptItemProps) => {
+export const ReceiptItem = ({ isSender, title, cardNumber, amountMoney, commission }: ReceiptItemProps) => {
 
     return (
         <>
             <div className="w-1/2 h-[80%] border rounded-lg p-4 shadow-md">
-                <span className="block tracking-widest text-xl font-bold">Відправник</span>
+                <span className="block tracking-widest text-xl font-bold">{title}</span>
                 <span className="block text-left py-4 text-gray-400">
                     Номер карти:
                     <span className="ml-4 font-bold text-black ">
