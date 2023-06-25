@@ -9,7 +9,10 @@ export const CvvInput = ({inputHook} : CvvInputProps) => {
         <>
            <input 
                 type="password"
-                {...inputHook} 
+                {...inputHook}
+                minLength={3}
+                maxLength={3}
+                pattern="[0-9]{3}" 
                 className=" w-12 px-2 border rounded-md text-2xl outline-none"
             
             /> 

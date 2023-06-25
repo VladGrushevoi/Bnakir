@@ -19,7 +19,7 @@ export const MainPage = ({ }: MainPageProps) => {
                             <Card 
                                 isSender={true} 
                                 title="Відправник" 
-                                cardNumberInputHook={useCardForm.cardSenderNumber.cardNumber} 
+                                cardNumberInputHook={useCardForm.cardSenderNumber} 
                                 cvvInputHook={useCardForm.cvvInput}
                                 dateInputHook={[useCardForm.dateSender.cardDate.month, useCardForm.dateSender.cardDate.year]}
                                 moneyInputHook={useCardForm.moneyInput}
@@ -27,7 +27,7 @@ export const MainPage = ({ }: MainPageProps) => {
                             <Card 
                                 isSender={false} 
                                 title="Отримувач" 
-                                cardNumberInputHook={useCardForm.cardReceiverNumber.cardNumber}
+                                cardNumberInputHook={useCardForm.cardReceiverNumber}
                             />
                         </div>
                         <SubmitButton />

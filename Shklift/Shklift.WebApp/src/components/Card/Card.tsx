@@ -7,7 +7,7 @@ import "./Card.css"
 interface CardProps {
     isSender: boolean,
     title: string,
-    cardNumberInputHook: InputHandler[],
+    cardNumberInputHook: { firstPart: InputHandler, secondPart: InputHandler,thirdPart: InputHandler,fourthPart: InputHandler },
     dateInputHook?: InputHandler[],
     cvvInputHook? : InputHandler,
     moneyInputHook? : InputHandler
@@ -15,6 +15,7 @@ interface CardProps {
 
 export interface InputHandler {
     value : string,
+    name: string,
     onChange : (e : React.ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -40,9 +41,13 @@ export const Card = ({ isSender, title,cardNumberInputHook,cvvInputHook,dateInpu
                     <div className="mt-8">
                         <p className="block text-center text-2xl">Номер банківської карти</p>
                         <div className="flex w-full h-10 justify-center">
-                            {
+                            {/* {
                                 cardNumberInputHook.map(item => <CardInput inputHook={item} key={Math.random()} />)
-                            }
+                            } */}
+                            <CardInput inputHook={cardNumberInputHook.firstPart} />
+                            <CardInput inputHook={cardNumberInputHook.secondPart} />
+                            <CardInput inputHook={cardNumberInputHook.thirdPart}  />
+                            <CardInput inputHook={cardNumberInputHook.fourthPart} />
                         </div>
                     </div>
                     {
