@@ -1,4 +1,5 @@
 ﻿using Kisa.Persistence.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Kisa.WebApi.Extensions;
 
@@ -9,6 +10,7 @@ public static class ConfigureApiApp
         var serviceScope = app.Services.CreateScope();
         var dataContext = serviceScope.ServiceProvider.GetService<DataContext>();
         dataContext?.Database.EnsureCreated();
+        //dataContext?.Database.Migrate();
         app.MapGroup("/card")
             .CardRoute()
             .WithTags("Public");

@@ -7,4 +7,5 @@ public sealed record CreateCardResponse
     public string CVV { get; set; }
     public string CreatedAt { get; set; }
     public string ExpireTo { get; set; }
+    public string ShortExpireTo { get; set; }
 }

@@ -9,4 +9,5 @@ public sealed class KisaCard : BaseEntity
     public string CountryName { get; set; }
     public DateOnly? CreatedAt { get; set; }
     public DateOnly? ExpireTo { get; set; }
+    public string ShortExpireTo { get; set; }
 }
