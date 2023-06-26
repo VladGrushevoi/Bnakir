@@ -8,8 +8,8 @@ public sealed class CardReadyToOperationMapper : Profile
     public CardReadyToOperationMapper()
     {
         CreateMap<CardReadyToOperationRequest, KisaCard>()
-            .ForMember(dest => dest.ExpireTo, opt
-                => opt.MapFrom(src => DateOnly.Parse(src.ExpireTo)));
+            .ForMember(dest => dest.ShortExpireTo, opt
+                => opt.MapFrom(src => src.ExpireToShort));
         CreateMap<KisaCard, CardReadyToOperationResponse>()
             .ForMember(dest => dest.IsReady, opt
                 => opt.MapFrom(

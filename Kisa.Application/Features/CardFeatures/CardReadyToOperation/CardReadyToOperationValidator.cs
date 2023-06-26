@@ -8,6 +8,6 @@ public sealed class CardReadyToOperationValidator : AbstractValidator<CardReadyT
     {
         RuleFor(src => src.CardNumber).Length(16);
         RuleFor(src => src.CVV).Length(3);
-        RuleFor(src => src.ExpireTo);
+        RuleFor(src => src.ExpireToShort).Matches("[0-9]{2}.[0-9]{2}");
     }
 }

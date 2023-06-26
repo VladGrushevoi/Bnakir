@@ -29,6 +29,10 @@ public sealed class KisaCardRepository : BaseRepository<KisaCard>, ICardReposito
             cards = cards.Where(x => entity.CountryName == x.CountryName);
         }
 
+        if (!string.IsNullOrWhiteSpace(entity.ShortExpireTo))
+        {
+            cards = cards.Where(x => x.ShortExpireTo == entity.ShortExpireTo);
+        }
         if (entity.ExpireTo.HasValue && entity.ExpireTo.Value != default)
         {
             cards = cards.Where(x => entity.ExpireTo == x.ExpireTo);
