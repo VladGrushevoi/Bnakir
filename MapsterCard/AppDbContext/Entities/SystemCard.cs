@@ -12,4 +12,5 @@ public sealed class SystemCard : BaseEntity
 
     public DateOnly? CreatedAt { get; set; }
     public DateOnly? ExpireTo { get; set; }
+    [MaxLength(5)] [MinLength(5)] public string ShortExpireTo { get; set; }
 }
