@@ -11,7 +11,8 @@ public sealed record AddCardResponse(
     string CVV,
     string CountryName,
     DateOnly CreatedAt,
-    DateOnly ExpireTo
+    DateOnly ExpireTo,
+    string ShortExpireTo
 );
 
 public sealed class AddCardModelValidator : AbstractValidator<AddCardRequest>

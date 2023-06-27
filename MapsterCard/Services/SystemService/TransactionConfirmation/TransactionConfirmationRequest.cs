@@ -22,8 +22,8 @@ class TransactionConfirmationRequestValidation : AbstractValidator<TransactionCo
             .NotNull().NotEmpty().Length(16);
         RuleFor(f => f.cardInfo.CVV)
             .NotNull().NotEmpty().Length(3);
-        RuleFor(f => f.cardInfo.ExpireTo.ToString())
-            .NotNull().NotEmpty().GreaterThanOrEqualTo(DateOnly.FromDateTime(DateTime.Now).ToString());
+        RuleFor(f => f.cardInfo.ShortExpireTo)
+            .NotNull().NotEmpty();
         RuleFor(f => f.Commission).NotNull().GreaterThan(0);
     }
 }

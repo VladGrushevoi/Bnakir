@@ -33,6 +33,11 @@ public sealed class SystemCardRepository : BaseRepository<SystemCard>, ISystemCa
             cards = cards.Where(c => c.CountryName == cardEntity.CountryName);
         }
 
+        if (!string.IsNullOrWhiteSpace(cardEntity.ShortExpireTo))
+        {
+            cards = cards.Where(x => x.ShortExpireTo == cardEntity.ShortExpireTo);
+        }
+
         if (cardEntity.CreatedAt.HasValue && cardEntity.CreatedAt.Value != default)
         {
             cards = cards.Where(c => c.CreatedAt == cardEntity.CreatedAt);

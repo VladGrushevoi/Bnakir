@@ -17,14 +17,16 @@ public sealed class CardMappingProfile : Profile
     public CardMappingProfile()
     {
         CreateMap<AddCardRequest, SystemCard>();
-        CreateMap<SystemCard, AddCardResponse>();
+        CreateMap<SystemCard, AddCardResponse>()
+            .ForMember(dest => dest.ShortExpireTo, opt
+                => opt.MapFrom(src => src.ShortExpireTo));
         CreateMap<GetCardByIdRequest, SystemCard>();
         CreateMap<SystemCard, GetCardByIdResponse>();
         CreateMap<CardReadyToOperationRequest, SystemCard>()
-            .ForMember(dest => dest.ExpireTo,
+            .ForMember(dest => dest.ShortExpireTo,
                 opt
                     => opt.MapFrom(src
-                        => DateOnly.Parse(src.ExpireTo)));
+                        => src.ShortExpireTo));
         CreateMap<SystemCard, CardReadyToOperationResponse>()
             .ForMember(dest
                 => dest.IsReady, opt
@@ -34,17 +36,21 @@ public sealed class CardMappingProfile : Profile
             .ForMember(dest => dest.IsConfirm, opt =>
                 opt.MapFrom(src => src.ExpireTo.Value >= DateOnly.FromDateTime(DateTime.Now)));
         CreateMap<GetCardByPropertiesRequest, SystemCard>()
-            .ForMember(dest => dest.ExpireTo, opt 
-            => opt.MapFrom(src => DateOnly.Parse(src.ExpireTo)))
-            .ForMember(dest => dest.CreatedAt, opt 
-                => opt.MapFrom(src => DateOnly.Parse(src.CreatedAt)));
+            .ForMember(dest => dest.ExpireTo, opt
+                => opt.MapFrom(src => DateOnly.Parse(src.ExpireTo)))
+            .ForMember(dest => dest.CreatedAt, opt
+                => opt.MapFrom(src => DateOnly.Parse(src.CreatedAt)))
+            .ForMember(dest => dest.ShortExpireTo, opt
+                => opt.MapFrom(src => src.ShortExpireTo));
         CreateMap<SystemCard, GetCardByPropertiesResponse>()
-            .ForMember(dest => dest.ExpireTo, opt 
-            => opt.MapFrom(src => src.ExpireTo!.Value.ToString()))
-            .ForMember(dest => dest.CreatedAt, opt 
+            .ForMember(dest => dest.ExpireTo, opt
+                => opt.MapFrom(src => src.ExpireTo!.Value.ToString()))
+            .ForMember(dest => dest.CreatedAt, opt
                 => opt.MapFrom(src => src.CreatedAt!.Value.ToString()))
-            .ForMember(dest => dest.Id, opt 
-            => opt.MapFrom(src => src.Id.ToString()));
+            .ForMember(dest => dest.Id, opt
+                => opt.MapFrom(src => src.Id.ToString()))
+            .ForMember(dest => dest.ShortExpireTo, opt
+                => opt.MapFrom(src => src.ShortExpireTo));
     }
 }
 
