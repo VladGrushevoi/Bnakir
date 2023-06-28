@@ -14,8 +14,8 @@ public record CreateTransactionRequest : IRequest<CreateTransactionResponse>
     public string FromCardCVV { get; set; }
     
     [Required]
-    [RegularExpression("\\d{4}-\\d{2}-\\d{2}", ErrorMessage = "Date must be equal to patter yyyy-mm-dd")]
-    public string FromCardExpire { get; set; }
+    [RegularExpression("\\d{2}.\\d{2}", ErrorMessage = "Date must be equal to pattern mm.yy")]
+    public string FromCardShortExpire { get; set; }
     
     [Required]
     [Range(5, float.MaxValue, ErrorMessage = "Amount money must be greater then 5")]

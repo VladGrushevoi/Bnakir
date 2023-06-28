@@ -38,7 +38,7 @@ public sealed class CreateTransactionHandler : IRequestHandler<CreateTransaction
         var senderCardInfo = await _api.GetCardInfo(new Card()
         {
             CardNumber = request.FromCardNumber,
-            ExpireTo = request.FromCardExpire,
+            ShortExpireTo = request.FromCardShortExpire,
             CVV = request.FromCardCVV
         }, cancellationToken);
         var receiverCardInfo = await _api.GetCardInfo(new Card()

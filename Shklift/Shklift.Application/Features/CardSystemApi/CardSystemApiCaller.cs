@@ -22,7 +22,7 @@ public class CardSystemApiCaller : IBaseApi
                 {
                     CardNumber = reqData.FromCardNumber,
                     CVV = reqData.FromCardCVV,
-                    ExpireTo = reqData.FromCardExpire
+                    ExpireTo = reqData.FromCardShortExpire
                 }, cls),
             //4411 is constant 4 first number of mapster card
             "4411" => await SendAsync<IsReadyCard>("http://localhost:5229/card/accept-operation",
@@ -30,7 +30,7 @@ public class CardSystemApiCaller : IBaseApi
                 {
                     CardNumber = reqData.FromCardNumber,
                     CVV = reqData.FromCardCVV,
-                    ExpireTo = reqData.FromCardExpire
+                    ExpireTo = reqData.FromCardShortExpire
                 }, cls),
             _ => new IsReadyCard()
         };
@@ -103,7 +103,7 @@ public class CardSystemApiCaller : IBaseApi
         {
             CardNumber = request.FromCardNumber,
             CVV = request.FromCardCVV,
-            ExpireTo = request.FromCardExpire
+            ShortExpireTo = request.FromCardShortExpire
         }, cancellationToken);
 
         var toCardInfo = await GetCardInfo(new Card()

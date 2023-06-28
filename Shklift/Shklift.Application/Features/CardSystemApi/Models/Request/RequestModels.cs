@@ -11,5 +11,5 @@ public sealed record Card
 {
     public string CardNumber { get; set; }
     public string CVV { get; set; }
-    public string ExpireTo { get; set; }
+    public string ShortExpireTo { get; set; }
 }
