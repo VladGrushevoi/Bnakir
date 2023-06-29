@@ -9,13 +9,13 @@ export interface TransactionProps {
 }
 
 export interface TransactionResponse {
-    Id?: string,
-    FromCardNumber?: string,
-    ToCardNumber?: string,
-    AmountMoney?: string,
-    DateOfOperation?: string,
-    Commission?: string,
-    IsConfirmTransaction: boolean 
+    id?: string,
+    fromCardNumber?: string,
+    toCardNumber?: string,
+    amountMoney?: string,
+    dateOfOperation?: string,
+    commission?: string,
+    isConfirmTransaction: boolean 
 }
 
 export const SendTransaction = async (transactData : TransactionProps) => {
@@ -31,7 +31,7 @@ export const SendTransaction = async (transactData : TransactionProps) => {
         })
     if(status != 200){
         return {
-            IsConfirmTransaction: false,
+            isConfirmTransaction: false,
         } as TransactionResponse
     }
     return data;

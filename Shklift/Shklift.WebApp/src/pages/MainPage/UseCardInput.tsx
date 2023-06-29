@@ -1,6 +1,8 @@
-import { SendTransaction, TransactionProps, TransactionResponse } from "../../axios/axios";
+import { useNavigate } from "react-router-dom";
+import { SendTransaction, TransactionProps } from "../../axios/axios";
 import { useInput } from "../../hooks/InputHook"
-import { redirect } from "react-router-dom";
+import { setTransactionResponse } from "../../redux/transactionSlice";
+import { useAppDispatch } from "../../redux/reduxHooks";
 
 export const useCardInput = () => {
     const cardSenderNumber = useCardNumberInput("");
@@ -8,8 +10,10 @@ export const useCardInput = () => {
     const dateSender = useDateInput();
     const cvvInput = useInput("178", "cvv");
     const moneyInput = useInput("100", "nomey");
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
-    const handleInputInfo = async (e : React.FormEvent, handleTransaction : (data: TransactionResponse) => void) => {
+    const handleInputInfo = async (e : React.FormEvent) => {
         e.preventDefault();
         const transData : TransactionProps = {
             FromCardNumber: cardSenderNumber.allPart,
@@ -19,10 +23,8 @@ export const useCardInput = () => {
             CardNumberReceiver: cardReceiverNumber.allPart
         }
         const result = await SendTransaction(transData);
-
-        console.log(result, "response")
-        handleTransaction(result);
-        redirect("/receipt")
+        dispatch(setTransactionResponse(result))
+        navigate('/receipt')
     }
 
     return {
