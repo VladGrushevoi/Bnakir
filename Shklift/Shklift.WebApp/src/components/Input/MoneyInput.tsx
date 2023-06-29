@@ -11,9 +11,8 @@ export const MoneyInput = ({inputHook} : MoneyInputProps) => {
             <input 
                 type="text" 
                 {...inputHook} 
-                maxLength={8}
-                minLength={8} 
-                pattern="[0-9]{8}" 
+                maxLength={8} 
+                pattern="[0-9]{1,8}" 
                 className="rounded-lg w-1/4 px-4 mt-4" />
         </>
     )

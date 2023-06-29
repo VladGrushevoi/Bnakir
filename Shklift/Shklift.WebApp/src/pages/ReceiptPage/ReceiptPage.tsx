@@ -1,27 +1,19 @@
+import { TransactionResponse } from "../../axios/axios";
 import { ReceiptItem } from "../../components/ReceiptItem/ReceiptItem"
 import "./ReceiptPage.css"
 
 interface ReceiptPageProps {
-
+    transactionData : TransactionResponse
 }
 
-const fakeData = {
-    status: true,
-    fromCard: "1111222233335555",
-    toCard: "3333444455556666",
-    amountMoney: 350,
-    commission: 35
-
-}
-
-export const ReceiptPage = ({} : ReceiptPageProps) => {
-
+export const ReceiptPage = ({ transactionData } : ReceiptPageProps) => {   
+    console.log(transactionData, "receipt page")
     return (
         <>
             <div className="w-[80%] h-[60%] m-auto mt-6 border rounded-2xl text-center justify-center shadow-md receipt-animation">
-                <div className={`block text-4xl mt-0 rounded-t-2xl py-2 ${fakeData.status ? 'bg-green-300' : 'bg-red-300'}`}>
+                <div className={`block text-4xl mt-0 rounded-t-2xl py-2 ${transactionData.IsConfirmTransaction ? 'bg-green-300' : 'bg-red-300'}`}>
                 {
-                            fakeData.status ? 
+                            transactionData.IsConfirmTransaction ? 
                             <img 
                                 src="https://img.icons8.com/?size=512&id=EmPTDMRlslbb&format=png" 
                                 alt="" 
@@ -40,15 +32,15 @@ export const ReceiptPage = ({} : ReceiptPageProps) => {
                     <ReceiptItem
                         title="Відправник" 
                         isSender={true} 
-                        cardNumber={fakeData.fromCard} 
-                        amountMoney={fakeData.amountMoney}
-                        commission={fakeData.commission}
+                        cardNumber={transactionData.FromCardNumber!} 
+                        amountMoney={transactionData.AmountMoney!}
+                        commission={transactionData.Commission!}
                         />
                     <span className="mx-2"></span>
                     <ReceiptItem
                         title="Отримувач" 
                         isSender={false}
-                        cardNumber={fakeData.toCard}
+                        cardNumber={transactionData.ToCardNumber!}
                     />
                 </div>
             </div>

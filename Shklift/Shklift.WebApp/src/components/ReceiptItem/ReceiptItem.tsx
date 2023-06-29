@@ -2,8 +2,8 @@ interface ReceiptItemProps {
     isSender: boolean,
     title: string,
     cardNumber: string,
-    amountMoney?: number | null | undefined,
-    commission?: number | null | undefined
+    amountMoney?: number | string | null | undefined,
+    commission?: number | string | null | undefined
 }
 
 export const ReceiptItem = ({ isSender, title, cardNumber, amountMoney, commission }: ReceiptItemProps) => {

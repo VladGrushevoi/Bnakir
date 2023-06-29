@@ -1,20 +1,23 @@
+import { TransactionResponse } from "../../axios/axios"
 import { SubmitButton } from "../../components/Button/SubmitButton"
 import { Card } from "../../components/Card/Card"
 import { useCardInput } from "./UseCardInput"
 
 interface MainPageProps {
-
+    HandleTransaction : (data: TransactionResponse) => void,
 }
 
-export const MainPage = ({ }: MainPageProps) => {
+export const MainPage = ({ HandleTransaction }: MainPageProps) => {
+
     const useCardForm = useCardInput();
+
     return (
         <>
             <section className="h-4/5">
                 <div
                     className="h-full"
                 >
-                    <form onSubmit={useCardForm.handleInputInfo}>
+                    <form onSubmit={(e) => useCardForm.handleInputInfo(e, HandleTransaction)}>
                         <div className="flex justify-center pt-24 flex-wrap">
                             <Card 
                                 isSender={true} 

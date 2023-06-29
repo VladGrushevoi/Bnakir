@@ -1,22 +1,28 @@
+import { SendTransaction, TransactionProps, TransactionResponse } from "../../axios/axios";
 import { useInput } from "../../hooks/InputHook"
+import { redirect } from "react-router-dom";
 
 export const useCardInput = () => {
     const cardSenderNumber = useCardNumberInput("");
     const cardReceiverNumber = useCardNumberInput("");
     const dateSender = useDateInput();
-    const cvvInput = useInput("", "cvv");
-    const moneyInput = useInput("", "nomey");
+    const cvvInput = useInput("178", "cvv");
+    const moneyInput = useInput("100", "nomey");
 
-    const handleInputInfo = (e : React.FormEvent) => {
+    const handleInputInfo = async (e : React.FormEvent, handleTransaction : (data: TransactionResponse) => void) => {
         e.preventDefault();
-        const info = {
-            sender: cardSenderNumber.allPart,
-            receiver:cardReceiverNumber.allPart,
-            date: dateSender.cardDate.month.value + "." + dateSender.cardDate.year.value,
-            cvv: cvvInput.value,
-            amountMoney: moneyInput.value 
+        const transData : TransactionProps = {
+            FromCardNumber: cardSenderNumber.allPart,
+            FromCardCvv: cvvInput.value,
+            FromCardShortExpire: dateSender.cardDate.month.value + "." + dateSender.cardDate.year.value,
+            AmountMoney: Number.parseFloat(moneyInput.value),
+            CardNumberReceiver: cardReceiverNumber.allPart
         }
-        console.log(info);
+        const result = await SendTransaction(transData);
+
+        console.log(result, "response")
+        handleTransaction(result);
+        redirect("/receipt")
     }
 
     return {
@@ -30,10 +36,11 @@ export const useCardInput = () => {
 }
 
 const useCardNumberInput = (init:string) => {
-    const numbers1 = useInput(init, `part1 ${Math.random()}`);
-    const numbers2 = useInput(init, `part2 ${Math.random()}`);
-    const numbers3 = useInput(init, `part3 ${Math.random()}`);
-    const numbers4 = useInput(init, `part4 ${Math.random()}`);
+    //4411232034167137
+    const numbers1 = useInput("4411", `part1 ${Math.random()}`);
+    const numbers2 = useInput("2320", `part2 ${Math.random()}`);
+    const numbers3 = useInput("3416", `part3 ${Math.random()}`);
+    const numbers4 = useInput("7137", `part4 ${Math.random()}`);
     return {
         firstPart: numbers1,
         secondPart: numbers2,
@@ -44,8 +51,8 @@ const useCardNumberInput = (init:string) => {
 }
 
 const useDateInput = () => {
-    const month = useInput("", "month");
-    const year = useInput("", "year");
+    const month = useInput("06", "month");
+    const year = useInput("25", "year");
 
     return {
         cardDate: {
