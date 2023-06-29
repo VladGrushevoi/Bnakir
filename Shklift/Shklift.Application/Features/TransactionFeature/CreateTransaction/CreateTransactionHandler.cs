@@ -46,9 +46,9 @@ public sealed class CreateTransactionHandler : IRequestHandler<CreateTransaction
             CardNumber = request.CardNumberReceiver
         }, cancellationToken);
 
-        var allSpendMoney = request.AmountMoney
-                            + (request.AmountMoney / 100f * systemCardCommission)
-                            + (request.AmountMoney / 100f * shkliftCommission);
+        var allSpendMoney = request.AmountMoney!
+                            + (request.AmountMoney / 100f * systemCardCommission)!
+                            + (request.AmountMoney / 100f * shkliftCommission)!;
         var gettingMoneyFromCard = await _api.GetMoneyFromBank(new GetMoneyFromBankRequest()
         {
             IdFromCardSystem = senderCardInfo.Id,
@@ -82,6 +82,7 @@ public sealed class CreateTransactionHandler : IRequestHandler<CreateTransaction
         var result = await _unitOfWork._transactionRepository.CreateAsync(transactionEntity, cancellationToken);
         await _unitOfWork.SaveAsync(cancellationToken);
         var response = result.Adapt<CreateTransactionResponse>();
+        response.Commission = allSpendMoney.ToString()!;
         return response;
     }
 }

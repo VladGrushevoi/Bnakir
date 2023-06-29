@@ -7,5 +7,6 @@ public sealed record CreateTransactionResponse
     public string ToCardNumber { get; set; }
     public string AmountMoney { get; set; }
     public string DateOfOperation { get; set; }
+    public string Commission { get; set; }
     public bool IcConfirmTransaction { get; set; }
 }
