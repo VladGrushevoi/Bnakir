@@ -82,7 +82,7 @@ public sealed class CreateTransactionHandler : IRequestHandler<CreateTransaction
         var result = await _unitOfWork._transactionRepository.CreateAsync(transactionEntity, cancellationToken);
         await _unitOfWork.SaveAsync(cancellationToken);
         var response = result.Adapt<CreateTransactionResponse>();
-        response.Commission = allSpendMoney.ToString()!;
+        response.Commission = (allSpendMoney - request.AmountMoney).ToString()!;
         return response;
     }
 }
