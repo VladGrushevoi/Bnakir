@@ -15,7 +15,7 @@ export const MainPage = ({ }: MainPageProps) => {
                 <div
                     className="h-full"
                 >
-                    <form onSubmit={useCardForm.handleInputInfo}>
+                    <form onSubmit={useCardForm.handleInputInfo} className="bg-gray-100">
                         <div className="flex justify-center pt-24 flex-wrap">
                             <Card 
                                 isSender={true} 
